@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ui\ControlBuilder.cs" />
     <Compile Include="ui\ControlPacker.cs" />
+    <Compile Include="ui\ProgressControls.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

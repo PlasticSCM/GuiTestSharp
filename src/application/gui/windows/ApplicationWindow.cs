@@ -40,6 +40,13 @@ namespace Codice.Examples.GuiTesting.Windows
             ControlPacker.AddControl(
                 this, ControlBuilder.CreateVerticalPadding(DockStyle.Top));
             ControlPacker.AddControl(this, BuildListBoxPanel());
+            ControlPacker.AddControl(
+                this, ControlBuilder.CreateVerticalPadding(DockStyle.Bottom));
+            ControlPacker.AddControl(this, BuildProgressTextPanel());
+
+            mProgressControls = new ProgressControls(
+                mProgressLabel,
+                new Control[] { mTextBox, mRemoveButton, mAddButton, mListBox });
         }
 
         Panel BuildTextInputPanel()
@@ -98,9 +105,26 @@ namespace Codice.Examples.GuiTesting.Windows
             return result;
         }
 
+        Panel BuildProgressTextPanel()
+        {
+            Panel result = ControlBuilder.CreatePanel(
+                ControlBuilder.DefaultControlHeight, DockStyle.Bottom);
+
+            mProgressLabel = ControlBuilder.CreateLabel(string.Empty, DockStyle.Left);
+
+            ControlPacker.AddControl(result, ControlBuilder.CreateHorizontalPadding(DockStyle.Left));
+            ControlPacker.AddControl(result, mProgressLabel);
+
+            return result;
+        }
+
+        IProgressControls mProgressControls;
+
         TextBox mTextBox;
         Button mRemoveButton;
         Button mAddButton;
         ListBox mListBox;
+
+        Label mProgressLabel;
     }
 }
