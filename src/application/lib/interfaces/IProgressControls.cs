@@ -2,6 +2,8 @@
 {
     public interface IProgressControls
     {
+        bool HasError { get; }
+
         void ShowProgress(string message);
         void HideProgress();
 

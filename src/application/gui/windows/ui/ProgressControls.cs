@@ -7,6 +7,9 @@ namespace Codice.Examples.GuiTesting.Windows.UI
 {
     internal class ProgressControls : IProgressControls
     {
+        public bool HasError { get { return mbHasError; } }
+        public Label ProgressLabel { get { return mProgressLabel; } }
+
         internal ProgressControls(Label progressLabel, Control[] controls)
         {
             mProgressLabel = progressLabel;
@@ -15,6 +18,8 @@ namespace Codice.Examples.GuiTesting.Windows.UI
 
         void IProgressControls.ShowProgress(string message)
         {
+            mbHasError = false;
+
             mProgressLabel.ForeColor = Color.Black;
             mProgressLabel.Text = message;
             mProgressLabel.Show();
@@ -36,6 +41,8 @@ namespace Codice.Examples.GuiTesting.Windows.UI
 
         void IProgressControls.ShowError(string message)
         {
+            mbHasError = true;
+
             mProgressLabel.ForeColor = Color.Red;
             mProgressLabel.Text = message;
             mProgressLabel.Show();
@@ -65,6 +72,7 @@ namespace Codice.Examples.GuiTesting.Windows.UI
         }
 
         Control mFocusedControl;
+        bool mbHasError;
 
         readonly Label mProgressLabel;
         readonly Control[] mControls;
