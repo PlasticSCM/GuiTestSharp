@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 using Codice.Examples.GuiTesting.Lib;
@@ -14,12 +15,7 @@ namespace Codice.Examples.GuiTesting.Windows
             BuildComponents();
         }
 
-        void IApplicationWindow.AddItemToList(string item)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IApplicationWindow.RemoveItemFromList(string item)
+        void IApplicationWindow.UpdateItems(List<string> items)
         {
             throw new NotImplementedException();
         }
