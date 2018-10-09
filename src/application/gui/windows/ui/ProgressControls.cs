@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
 using Codice.Examples.GuiTesting.Lib.Interfaces;
 
@@ -12,6 +13,17 @@ namespace Codice.Examples.GuiTesting.Windows.UI
             mControls = controls;
         }
 
+        void IProgressControls.ShowProgress(string message)
+        {
+            mProgressLabel.ForeColor = Color.Black;
+            mProgressLabel.Text = message;
+            mProgressLabel.Show();
+
+            mFocusedControl = GetFocusedControl(mControls);
+
+            DisableControls(mControls);
+        }
+
         void IProgressControls.HideProgress()
         {
             mProgressLabel.Hide();
@@ -22,14 +34,11 @@ namespace Codice.Examples.GuiTesting.Windows.UI
                 mFocusedControl.Focus();
         }
 
-        void IProgressControls.ShowProgress(string message)
+        void IProgressControls.ShowError(string message)
         {
+            mProgressLabel.ForeColor = Color.Red;
             mProgressLabel.Text = message;
             mProgressLabel.Show();
-
-            mFocusedControl = GetFocusedControl(mControls);
-
-            DisableControls(mControls);
         }
 
         static void EnableControls(Control[] controls)

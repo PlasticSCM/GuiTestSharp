@@ -4,5 +4,7 @@
     {
         void ShowProgress(string message);
         void HideProgress();
+
+        void ShowError(string message);
     }
 }
