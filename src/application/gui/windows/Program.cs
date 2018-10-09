@@ -10,8 +10,12 @@ namespace Codice.Examples.GuiTesting.Windows
     static class Program
     {
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            ApplicationArgs appArgs = ApplicationArgs.Parse(args);
+
+            ExceptionsHandler.SetExceptionHandlers(appArgs.IsTestingMode);
+
             ThreadWaiterBuilder.Initialize(new WinPlasticTimerBuilder());
 
             Application.EnableVisualStyles();
