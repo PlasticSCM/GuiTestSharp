@@ -45,6 +45,8 @@
     <Compile Include="interfaces\IProgressControls.cs" />
     <Compile Include="Localization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="threading\ApplicationThread.cs" />
+    <Compile Include="threading\ApplicationThreadWaiter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
