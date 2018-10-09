@@ -10,6 +10,12 @@ namespace Codice.Examples.GuiTesting.Windows
 {
     internal class ApplicationWindow : Form, IApplicationWindow
     {
+        internal TextBox TextBox { get { return mTextBox; } }
+        internal Button RemoveButton { get { return mRemoveButton; } }
+        internal Button AddButton { get { return mAddButton; } }
+        internal ListBox ListBox { get { return mListBox; } }
+        internal ProgressControls ProgressControls { get { return mProgressControls; } }
+
         internal ApplicationWindow(ApplicationOperations operations)
         {
             mOperations = operations;
@@ -144,7 +150,7 @@ namespace Codice.Examples.GuiTesting.Windows
         }
         #endregion
 
-        IProgressControls mProgressControls;
+        ProgressControls mProgressControls;
 
         TextBox mTextBox;
         Button mRemoveButton;
