@@ -10,21 +10,46 @@ namespace Codice.Examples.GuiTesting.Windows
 {
     internal class ApplicationWindow : Form, IApplicationWindow
     {
-        internal ApplicationWindow()
+        internal ApplicationWindow(ApplicationOperations operations)
         {
+            mOperations = operations;
             BuildComponents();
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            mAddButton.Click -= AddButton_Click;
+            mRemoveButton.Click -= RemoveButton_Click;
+
+            base.Dispose(disposing);
+        }
+
+        #region IApplicationWindow methods
         void IApplicationWindow.UpdateItems(List<string> items)
         {
-            throw new NotImplementedException();
+            mListBox.DataSource = items.AsReadOnly();
+            mListBox.Update();
         }
 
         void IApplicationWindow.ClearInput()
         {
-            throw new NotImplementedException();
+            mTextBox.ResetText();
+        }
+        #endregion
+
+        #region Event handlers
+        void AddButton_Click(object sender, EventArgs e)
+        {
+            mOperations.AddElement(mTextBox.Text, this, mProgressControls);
         }
 
+        void RemoveButton_Click(object sender, EventArgs e)
+        {
+            mOperations.RemoveElement(mTextBox.Text, this, mProgressControls);
+        }
+        #endregion
+
+        #region UI building code
         void BuildComponents()
         {
             ControlPacker.AddControl(
@@ -43,6 +68,9 @@ namespace Codice.Examples.GuiTesting.Windows
             mProgressControls = new ProgressControls(
                 mProgressLabel,
                 new Control[] { mTextBox, mRemoveButton, mAddButton, mListBox });
+
+            mAddButton.Click += AddButton_Click;
+            mRemoveButton.Click += RemoveButton_Click;
         }
 
         Panel BuildTextInputPanel()
@@ -93,6 +121,7 @@ namespace Codice.Examples.GuiTesting.Windows
             Panel result = ControlBuilder.CreatePanel(DockStyle.Fill);
 
             mListBox = ControlBuilder.CreateListBox(DockStyle.Fill);
+            mListBox.SelectionMode = SelectionMode.None;
 
             ControlPacker.AddControl(result, ControlBuilder.CreateHorizontalPadding(DockStyle.Left));
             ControlPacker.AddControl(result, ControlBuilder.CreateHorizontalPadding(DockStyle.Right));
@@ -113,6 +142,7 @@ namespace Codice.Examples.GuiTesting.Windows
 
             return result;
         }
+        #endregion
 
         IProgressControls mProgressControls;
 
@@ -122,5 +152,7 @@ namespace Codice.Examples.GuiTesting.Windows
         ListBox mListBox;
 
         Label mProgressLabel;
+
+        readonly ApplicationOperations mOperations;
     }
 }

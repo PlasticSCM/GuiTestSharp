@@ -1,22 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using Codice.Examples.GuiTesting.Lib;
+using Codice.Examples.GuiTesting.Lib.Threading;
+using Codice.Examples.GuiTesting.Windows.Threading;
 
 namespace Codice.Examples.GuiTesting.Windows
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
+            ThreadWaiterBuilder.Initialize(new WinPlasticTimerBuilder());
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ApplicationWindow());
+            Application.Run(new ApplicationWindow(new ApplicationOperations()));
         }
     }
 }
