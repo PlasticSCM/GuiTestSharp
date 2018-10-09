@@ -8,7 +8,10 @@ namespace Codice.Examples.GuiTesting.Lib
         {
             AddButton,
             RemoveButton,
-            TextInputLabel
+            TextInputLabel,
+            AddingElementProgressText,
+            RemovingElementProgressText,
+            ElementCantBeEmptyErrorMessage
         }
 
         Localization()
@@ -17,11 +20,23 @@ namespace Codice.Examples.GuiTesting.Lib
             mTexts.Add(Name.AddButton, "Add");
             mTexts.Add(Name.RemoveButton, "Remove");
             mTexts.Add(Name.TextInputLabel, "Text: ");
+            mTexts.Add(Name.AddingElementProgressText, "Adding element {0}...");
+            mTexts.Add(Name.RemovingElementProgressText, "Removing element {0}...");
+            mTexts.Add(Name.ElementCantBeEmptyErrorMessage, "The element can't be empty!");
         }
 
         public static string GetText(Name name)
         {
             return GetInstance().TryGetString(name);
+        }
+    
+        public static string GetText(Name name, params object[] args)
+        {
+            string result = GetInstance().TryGetString(name);
+
+            return (result == UNLOCALIZED)
+                ? UNLOCALIZED
+                : string.Format(result, args);
         }
 
         static Localization GetInstance()
@@ -43,5 +58,7 @@ namespace Codice.Examples.GuiTesting.Lib
         static Localization mInstance;
 
         readonly Dictionary<Name, string> mTexts;
+
+        const string UNLOCALIZED = "UNLOCALIZED";
     }
 }
