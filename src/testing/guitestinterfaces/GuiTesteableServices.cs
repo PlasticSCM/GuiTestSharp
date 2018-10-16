@@ -12,10 +12,15 @@ namespace Codice.Examples.GuiTesting.GuiTestInterfaces
 
         public static void Init(ITesteableApplicationWindow window)
         {
-            throw new NotImplementedException();
+            if (mInstance == null)
+                mInstance = new GuiTesteableServices();
+
+            mInstance.mTesteableApplicationWindow = window;
         }
 
         Exception mUnhandledException;
         static GuiTesteableServices mInstance;
+
+        ITesteableApplicationWindow mTesteableApplicationWindow;
     }
 }
