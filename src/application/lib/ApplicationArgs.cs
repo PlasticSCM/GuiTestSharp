@@ -25,7 +25,7 @@ namespace Codice.Examples.GuiTesting.Lib
                 || !Directory.Exists(args[1])
                 || !File.Exists(args[2]))
             {
-                new ApplicationArgs(false, string.Empty, string.Empty);
+                return new ApplicationArgs(false, string.Empty, string.Empty);
             }
 
             return new ApplicationArgs(true, args[1], args[2]);
