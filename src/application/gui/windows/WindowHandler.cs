@@ -8,6 +8,8 @@ using log4net;
 using log4net.Config;
 using log4net.Repository;
 
+using GuiTest;
+
 using Codice.Examples.GuiTesting.GuiTestInterfaces;
 using Codice.Examples.GuiTesting.Lib;
 using Codice.Examples.GuiTesting.Windows.Testing;

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
+using GuiTest;
+
 using Codice.Examples.GuiTesting.Lib;
 using Codice.Examples.GuiTesting.Lib.Threading;
-using Codice.Examples.GuiTesting.Windows.Testing;
 using Codice.Examples.GuiTesting.Windows.Threading;
 
 namespace Codice.Examples.GuiTesting.Windows
