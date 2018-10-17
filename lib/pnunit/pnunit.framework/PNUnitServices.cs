@@ -178,6 +178,11 @@ namespace PNUnit.Framework
             }
         }
 
+        public void WriteLine(string s, params object[] args)
+        {
+            WriteLine(string.Format(s, args));
+        }
+
         public void Write(char[] buf)
         {
             if (mConsoles == null)
