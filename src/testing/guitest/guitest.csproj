@@ -52,6 +52,7 @@
     <Reference Include="System.Management" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationWindowTests.cs" />
     <Compile Include="OSVersionName.cs" />
     <Compile Include="PlatformUtils.cs" />
     <Compile Include="TestOperations.cs" />
