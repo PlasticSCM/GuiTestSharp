@@ -18,6 +18,11 @@ namespace Codice.Examples.GuiTesting.GuiTestInterfaces
             mInstance.mTesteableApplicationWindow = window;
         }
 
+        public static ITesteableApplicationWindow GetApplicationWindow()
+        {
+            return mInstance.mTesteableApplicationWindow;
+        }
+
         Exception mUnhandledException;
         static GuiTesteableServices mInstance;
 
