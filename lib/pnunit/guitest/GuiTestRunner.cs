@@ -130,7 +130,10 @@ namespace GuiTest
                     {
                         BinaryFormatter bf = new BinaryFormatter();
                         bf.AssemblyFormat = FormatterAssemblyStyle.Simple;
-                        return (PNUnitTestInfo)bf.Deserialize(fs);
+                        PNUnitTestInfo result = (PNUnitTestInfo)bf.Deserialize(fs);
+
+                        result.TestToRun = CleanTestName(result.TestToRun);
+                        return result;
                     }
                 }
                 catch (Exception ex)
@@ -147,6 +150,15 @@ namespace GuiTest
                         "Read test info file {0} in {1} ms.",
                         testInfoPath, Environment.TickCount - init);
                 }
+            }
+
+            static string CleanTestName(string testName)
+            {
+                int platformSeparatorIndex = testName.IndexOf(':');
+                if (platformSeparatorIndex < 0)
+                    return testName;
+
+                return testName.Substring(platformSeparatorIndex + 1);
             }
 
             static void TryDelete(string testInfoPath)
