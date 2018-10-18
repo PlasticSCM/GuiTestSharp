@@ -36,6 +36,17 @@ namespace Codice.Examples.GuiTesting.Windows.Testing
             });
         }
 
+        internal bool IsEnabled(Control control)
+        {
+            bool result = false;
+            mControl.Invoke((MethodInvoker)delegate
+            {
+                result = control.Enabled;
+            });
+
+            return result;
+        }
+
         internal int GetItemCount(ListBox listBox)
         {
             int result = -1;

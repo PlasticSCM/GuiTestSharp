@@ -30,6 +30,12 @@ namespace Codice.Examples.GuiTesting.Windows.Testing
             mHelper.ClickButton(mWindow.RemoveButton);
         }
 
+        bool ITesteableApplicationWindow.AreButtonsEnabled()
+        {
+            return mHelper.IsEnabled(mWindow.AddButton)
+                && mHelper.IsEnabled(mWindow.RemoveButton);
+        }
+
         string ITesteableApplicationWindow.GetItemInListAt(int index)
         {
             return mHelper.GetItemAt(mWindow.ListBox, index).ToString();

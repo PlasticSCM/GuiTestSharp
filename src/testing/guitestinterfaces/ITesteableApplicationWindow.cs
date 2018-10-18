@@ -5,6 +5,8 @@
         void ClickAddButton();
         void ClickRemoveButton();
 
+        bool AreButtonsEnabled();
+
         void ChangeText(string text);
         string GetText();
 
