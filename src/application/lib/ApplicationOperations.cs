@@ -36,6 +36,7 @@ namespace Codice.Examples.GuiTesting.Lib
                         throw new Exception("The element is already in the list!");
 
                     mModel.Add(element);
+                    mModel.Sort(StringComparer.Ordinal);
                 },
                 afterOperationDelegate: () =>
                 {
