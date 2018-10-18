@@ -361,13 +361,13 @@ namespace PNUnit.Agent
                     throw new Exception("test is incorrectly defined");
 
                 string executablePath = Path.Combine(
-                    pathToAssemblies, testInfo.TestParams[2]);
+                    pathToAssemblies, testInfo.TestParams[0]);
 
                 executablePath = Path.GetFullPath(executablePath);
 
                 string processName = Path.Combine(executablePath, "windows.exe");
 
-                string arguments = string.Concat(testInfo.TestParams[3], " ", testingArgs);
+                string arguments = string.Concat(testInfo.TestParams[1], " ", testingArgs);
 
                 Console.WriteLine(processName);
                 Console.WriteLine(arguments);
