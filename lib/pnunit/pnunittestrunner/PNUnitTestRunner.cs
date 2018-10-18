@@ -136,10 +136,11 @@ namespace PNUnitTestRunner
 
             int ini = Environment.TickCount;
 
+            string fullAssemblyPath = Path.GetFullPath(
+                Path.Combine(mPathToAssemblies, AssemblyPreload.PRELOADED_ASSEMBLY));
+
             mPreloader.TestAssemblyLoaded = MakeTest(
-                mPreloader.TestRunner,
-                Path.Combine(
-                    mPathToAssemblies, AssemblyPreload.PRELOADED_ASSEMBLY));
+                mPreloader.TestRunner, fullAssemblyPath);
 
             mLog.DebugFormat("Preloader load test assembly {0} ms", Environment.TickCount - ini);
         }
@@ -164,7 +165,7 @@ namespace PNUnitTestRunner
 
         void UnloadTests(TestRunner runner)
         {
-            lock(obj)
+            lock (obj)
             {
                 runner.Unload();
             }
@@ -186,9 +187,10 @@ namespace PNUnitTestRunner
 
                 int ini = Environment.TickCount;
 
-                testAssemblyLoaded = MakeTest(
-                    result,
+                string fullAssemblyPath = Path.GetFullPath(
                     Path.Combine(mPathToAssemblies, testInfo.AssemblyName));
+
+                testAssemblyLoaded = MakeTest(result, fullAssemblyPath);
 
                 mLog.DebugFormat("Load test assembly {0} ms", Environment.TickCount - ini);
             }
@@ -204,7 +206,7 @@ namespace PNUnitTestRunner
                 testAssemblyLoaded = mPreloader.TestAssemblyLoaded;
             }
 
-            if( !testAssemblyLoaded )
+            if (!testAssemblyLoaded)
             {
                 mLog.InfoFormat("Unable to load test assembly {0} for test {1}",
                     testInfo.AssemblyName,
@@ -244,7 +246,7 @@ namespace PNUnitTestRunner
 
             mLog.Debug("Going to build the result ...");
 
-            if( result == null )
+            if (result == null)
             {
                 mLog.Debug("Going to build an error result ...");
                 TestName testName = new TestName();
@@ -314,15 +316,15 @@ namespace PNUnitTestRunner
 
         static TestResult FindResult(string name, TestResult result)
         {
-            if( result.Test.TestName.FullName == name )
+            if (result.Test.TestName.FullName == name)
                 return result;
 
-            if( result.HasResults )
+            if (result.HasResults)
             {
-                foreach( TestResult r in result.Results )
+                foreach (TestResult r in result.Results)
                 {
                     TestResult myResult = FindResult(name, r);
-                    if( myResult != null )
+                    if (myResult != null)
                         return myResult;
                 }
             }
@@ -330,9 +332,9 @@ namespace PNUnitTestRunner
             return null;
         }
 
-        bool MakeTest(TestRunner runner, string assemblyName)
+        bool MakeTest(TestRunner runner, string fullAssemblyPath)
         {
-            return runner.Load(new TestPackage(assemblyName));
+            return runner.Load(new TestPackage(fullAssemblyPath));
         }
 
         #region Nested Class to Handle Events
@@ -376,11 +378,11 @@ namespace PNUnitTestRunner
 
             public void TestFinished(TestResult testResult)
             {
-                if(testResult.Executed)
+                if (testResult.Executed)
                 {
                     testRunCount++;
 
-                    if(testResult.IsFailure)
+                    if (testResult.IsFailure)
                     {
                         failureCount++;
                     }
@@ -411,17 +413,17 @@ namespace PNUnitTestRunner
             {
             }
 
-            public void UnhandledException( Exception exception )
+            public void UnhandledException(Exception exception)
             {
-                string msg = string.Format( "##### Unhandled Exception while running {0}", mCurrentTestName );
+                string msg = string.Format("##### Unhandled Exception while running {0}", mCurrentTestName);
 
                 // If we do labels, we already have a newline
                 //if ( !options.labels ) writer.WriteLine();
-                mWriter.WriteLine( msg );
-                mWriter.WriteLine( exception.ToString() );
+                mWriter.WriteLine(msg);
+                mWriter.WriteLine(exception.ToString());
             }
 
-            public void TestOutput( TestOutput output)
+            public void TestOutput(TestOutput output)
             {
             }
         }
