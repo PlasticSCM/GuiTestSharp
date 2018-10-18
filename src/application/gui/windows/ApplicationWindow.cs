@@ -30,6 +30,12 @@ namespace Codice.Examples.GuiTesting.Windows
             base.Dispose(disposing);
         }
 
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            WindowHandler.UnregisterApplicationWindow();
+        }
+
         #region IApplicationWindow methods
         void IApplicationWindow.UpdateItems(List<string> items)
         {
