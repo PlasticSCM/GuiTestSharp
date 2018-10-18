@@ -115,9 +115,6 @@
     <Compile Include="testlogger\TestSuiteEntry.cs" />
     <Compile Include="TestsRun.cs" />
     <Content Include="App.ico" />
-    <Compile Include="AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Barrier.cs">
       <SubType>Code</SubType>
     </Compile>

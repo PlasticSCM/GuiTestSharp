@@ -42,7 +42,6 @@
     <Compile Include="NUnitTestRunner.cs" />
     <Compile Include="PNUnitTestRunner.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="InitServices.cs" />
     <Compile Include="TestInfoReader.cs" />
   </ItemGroup>
@@ -76,6 +75,9 @@
       <Project>{5261ABA1-98E6-4603-A4F0-59CAC307AC68}</Project>
       <Name>pnunit.framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
