@@ -25,6 +25,8 @@ namespace GuiTest
         {
             RunGuitest(methodTestname, testDelegate);
 
+            // In this example we do not throw any unhandled exception, but in
+            // the case the application does, it would end up being handled here.
             Exception unhandledException = GuiTesteableServices.UnhandledException;
 
             if (unhandledException != null)
@@ -36,11 +38,7 @@ namespace GuiTest
                     unhandledException.StackTrace);
             }
 
-            ITesteableApplicationWindow applicationWindow =
-                GuiTesteableServices.GetApplicationWindow();
-
-            if (applicationWindow != null)
-                Assert.Fail("The test didn't finish as expected.");
+            CheckUnexpectedMessages();
         }
 
         internal static void RunGuitest(
@@ -53,6 +51,21 @@ namespace GuiTest
             // test runs in a reproducible scenario.
 
             RunTest(methodTestName, testDelegate, GetGuiTestExecutablePath());
+        }
+
+        static void CheckUnexpectedMessages()
+        {
+            ITesteableErrorDialog errorDialog = GuiTesteableServices.GetErrorDialog();
+
+            if (errorDialog != null)
+            {
+                Assert.Fail(
+                    "The test finished with an unexpected error dialog still showing up: {0}",
+                    errorDialog.GetText());
+            }
+
+            // Here you would check for the rest of possible dialogs your
+            // application can show.
         }
 
         static string GetGuiTestExecutablePath()
