@@ -18,6 +18,11 @@ namespace Codice.Examples.GuiTesting.Windows
 {
     internal static class WindowHandler
     {
+        internal static IWin32Window ApplicationWindow
+        {
+            get { return mApplicationWindow; }
+        }
+
         internal static void LaunchApplicationWindow()
         {
             ApplicationOperations operations = new ApplicationOperations();
@@ -31,6 +36,23 @@ namespace Codice.Examples.GuiTesting.Windows
             mApplicationWindow = null;
 
             TerminateApplication();
+        }
+
+        internal static void SetActiveDialogForTesting(Form dialog)
+        {
+            if (!mbIsTestRun)
+                return;
+
+            mActiveDialog = dialog;
+        }
+
+        internal static void RemoveDialogForTesting(Form dialog)
+        {
+            if (!mbIsTestRun)
+                return;
+
+            if (mActiveDialog == dialog)
+                mActiveDialog = null;
         }
 
         internal static void LaunchTest(string testInfoFile, string pathToAssemblies)
@@ -76,6 +98,7 @@ namespace Codice.Examples.GuiTesting.Windows
         }
 
         static ApplicationWindow mApplicationWindow;
+        static Form mActiveDialog;
         static bool mbIsTestRun = false;
 
         static readonly ILoggerRepository mLogRepository =

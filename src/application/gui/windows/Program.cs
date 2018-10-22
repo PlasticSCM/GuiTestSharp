@@ -7,6 +7,7 @@ using GuiTest;
 using Codice.Examples.GuiTesting.Lib;
 using Codice.Examples.GuiTesting.Lib.Threading;
 using Codice.Examples.GuiTesting.Windows.Threading;
+using Codice.Examples.GuiTesting.Lib.Interfaces;
 
 namespace Codice.Examples.GuiTesting.Windows
 {
@@ -22,6 +23,8 @@ namespace Codice.Examples.GuiTesting.Windows
                 ExceptionsHandler.SetExceptionHandlers(appArgs.IsTestingMode);
 
                 ThreadWaiterBuilder.Initialize(new WinPlasticTimerBuilder());
+
+                GuiMessage.Initialize(new WindowsGuiMessage());
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);

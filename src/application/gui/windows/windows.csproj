@@ -81,6 +81,7 @@
     <Compile Include="ui\ControlPacker.cs" />
     <Compile Include="ui\ProgressControls.cs" />
     <Compile Include="WindowHandler.cs" />
+    <Compile Include="WindowsGuiMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
