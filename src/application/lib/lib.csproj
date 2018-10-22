@@ -37,6 +37,7 @@
     <Compile Include="ApplicationArgs.cs" />
     <Compile Include="ApplicationOperations.cs" />
     <Compile Include="interfaces\IApplicationWindow.cs" />
+    <Compile Include="IGuiMessage.cs" />
     <Compile Include="interfaces\IProgressControls.cs" />
     <Compile Include="Localization.cs" />
     <Compile Include="threading\ApplicationThread.cs" />
