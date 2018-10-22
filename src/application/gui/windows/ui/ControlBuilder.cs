@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace Codice.Examples.GuiTesting.Windows.UI
 {
@@ -71,6 +72,17 @@ namespace Codice.Examples.GuiTesting.Windows.UI
         internal static ListBox CreateListBox(DockStyle dock)
         {
             ListBox result = new ListBox();
+            result.Dock = dock;
+
+            return result;
+        }
+
+        internal static PictureBox CreatePictureBox(Image image, DockStyle dock)
+        {
+            PictureBox result = new PictureBox();
+            result.Image = image;
+            result.Width = image.Width;
+            result.Height = image.Height;
             result.Dock = dock;
 
             return result;
