@@ -33,7 +33,11 @@ namespace Codice.Examples.GuiTesting.Lib
                     DoHeavyWork();
 
                     if (mModel.Contains(element))
-                        throw new Exception("The element is already in the list!");
+                    {
+                        throw new Exception(
+                            Localization.GetText(
+                                Localization.Name.ElementInTheListErrorMessage, element));
+                    }
 
                     mModel.Add(element);
                     mModel.Sort(StringComparer.Ordinal);
@@ -44,7 +48,9 @@ namespace Codice.Examples.GuiTesting.Lib
 
                     if (waiter.Exception != null)
                     {
-                        progressControls.ShowError(waiter.Exception.Message);
+                        GuiMessage.ShowError(
+                            Localization.GetText(Localization.Name.ErrorTitle),
+                            waiter.Exception.Message);
                         return;
                     }
 
@@ -78,7 +84,11 @@ namespace Codice.Examples.GuiTesting.Lib
                     DoHeavyWork();
 
                     if (!mModel.Contains(element))
-                        throw new Exception("The element is not in the list!");
+                    {
+                        throw new Exception(
+                            Localization.GetText(
+                                Localization.Name.ElementNotInTheListErrorMessage, element));
+                    }
 
                     mModel.Remove(element);
                 },

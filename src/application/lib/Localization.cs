@@ -12,7 +12,10 @@ namespace Codice.Examples.GuiTesting.Lib
             TextInputLabel,
             AddingElementProgressText,
             RemovingElementProgressText,
-            ElementCantBeEmptyErrorMessage
+            ElementCantBeEmptyErrorMessage,
+            ErrorTitle,
+            ElementNotInTheListErrorMessage,
+            ElementInTheListErrorMessage
         }
 
         Localization()
@@ -25,6 +28,9 @@ namespace Codice.Examples.GuiTesting.Lib
             mTexts.Add(Name.AddingElementProgressText, "Adding element {0}...");
             mTexts.Add(Name.RemovingElementProgressText, "Removing element {0}...");
             mTexts.Add(Name.ElementCantBeEmptyErrorMessage, "The element can't be empty!");
+            mTexts.Add(Name.ErrorTitle, "Error");
+            mTexts.Add(Name.ElementNotInTheListErrorMessage, "The element {0} is not in the list, and thus it can't be removed!");
+            mTexts.Add(Name.ElementInTheListErrorMessage, "The element {0} is already in the list, and thus it can't be added!");
         }
 
         public static string GetText(Name name)
