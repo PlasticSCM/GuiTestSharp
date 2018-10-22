@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="GuiTesteableServices.cs" />
     <Compile Include="ITesteableApplicationWindow.cs" />
+    <Compile Include="ITesteableErrorDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

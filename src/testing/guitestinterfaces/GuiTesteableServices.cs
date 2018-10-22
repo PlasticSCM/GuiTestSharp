@@ -23,9 +23,20 @@ namespace Codice.Examples.GuiTesting.GuiTestInterfaces
             return mInstance.mTesteableApplicationWindow;
         }
 
+        public static void SetErrorDialog(ITesteableErrorDialog dialog)
+        {
+            mInstance.mTesteableErrorDialog = dialog;
+        }
+
+        public static ITesteableErrorDialog GetErrorDialog()
+        {
+            return mInstance.mTesteableErrorDialog;
+        }
+
         Exception mUnhandledException;
         static GuiTesteableServices mInstance;
 
         ITesteableApplicationWindow mTesteableApplicationWindow;
+        ITesteableErrorDialog mTesteableErrorDialog;
     }
 }

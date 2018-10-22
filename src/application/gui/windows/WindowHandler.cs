@@ -44,6 +44,9 @@ namespace Codice.Examples.GuiTesting.Windows
                 return;
 
             mActiveDialog = dialog;
+
+            if (dialog is ITesteableErrorDialog)
+                GuiTesteableServices.SetErrorDialog((ITesteableErrorDialog)dialog);
         }
 
         internal static void RemoveDialogForTesting(Form dialog)
@@ -53,6 +56,9 @@ namespace Codice.Examples.GuiTesting.Windows
 
             if (mActiveDialog == dialog)
                 mActiveDialog = null;
+
+            if (dialog is ITesteableErrorDialog)
+                GuiTesteableServices.SetErrorDialog(null);
         }
 
         internal static void LaunchTest(string testInfoFile, string pathToAssemblies)

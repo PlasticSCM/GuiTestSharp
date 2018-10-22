@@ -9,6 +9,9 @@ namespace Codice.Examples.GuiTesting.Windows
 {
     internal class ErrorDialog : Form
     {
+        internal Button OkButton { get { return mOkButton; } }
+        internal Label MessageLabel { get { return mMessageLabel; } }
+
         internal ErrorDialog(string title, string message)
         {
             Text = title;
