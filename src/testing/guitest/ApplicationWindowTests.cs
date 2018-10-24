@@ -4,7 +4,6 @@ using log4net;
 using NUnit.Framework;
 
 using Codice.Examples.GuiTesting.GuiTestInterfaces;
-using PNUnit.Framework;
 
 namespace GuiTest
 {
@@ -14,11 +13,33 @@ namespace GuiTest
         [Test]
         public void BasicApplicationWindowTest()
         {
-            PNUnitServices.Get().WriteLine("The test is running!");
-
             TestOperations.RunTest(
                 "BasicApplicationWindowTest",
                 DoBasicApplicationWindowTest);
+        }
+
+        [Test]
+        public void AddExistingElementTest()
+        {
+            TestOperations.RunTest(
+                "AddExistingElementTest",
+                DoAddExistingElementTest);
+        }
+
+        [Test]
+        public void RemoveUnexistingElementTest()
+        {
+            TestOperations.RunTest(
+                "RemoveUnexistingElementTest",
+                DoRemoveUnexistingElementTest);
+        }
+
+        [Test]
+        public void ThisTestWillFailAtTheEndTest()
+        {
+            TestOperations.RunTest(
+                "ThisTestWillFailAtTheEndTest",
+                DoThisTestWillFailAtTheEndTest);
         }
 
         void DoBasicApplicationWindowTest(string testName)
@@ -129,12 +150,176 @@ namespace GuiTest
             }
             catch (Exception ex)
             {
-                mLog.ErrorFormat(ex.Message);
-                mLog.ErrorFormat(ex.StackTrace);
+                mLog.Error(ex.Message);
+                mLog.Error(ex.StackTrace);
             }
             finally
             {
                 // here you'd do your cleanup!
+            }
+        }
+
+        void DoAddExistingElementTest(string testName)
+        {
+            try
+            {
+                ITesteableApplicationWindow window =
+                    GuiTesteableServices.GetApplicationWindow();
+
+                window.ChangeText("Hello");
+                window.ClickAddButton();
+
+                WaitingAssert.AreEqual(
+                    "Adding element Hello...",
+                    window.GetProgressMessage,
+                    "The progress message does not match the expected one " +
+                        "while adding 'Hello'.");
+
+                WaitingAssert.IsTrue(
+                    window.AreButtonsEnabled,
+                    "The window buttons were not re-enabled in a reasonable time.");
+
+                Assert.IsEmpty(
+                    window.GetText(),
+                    "The window's text should be empty after the buttons are re-enabled.");
+
+                window.ChangeText("Hello");
+                window.ClickAddButton();
+
+                WaitingAssert.AreEqual(
+                    "Adding element Hello...",
+                    window.GetProgressMessage,
+                    "The progress message does not match the expected one " +
+                        "while adding 'Hello'.");
+
+                // We don't know at which point the background operation will
+                // end and the error message will show up, so we'll have to
+                // wait for the error message to be different than null.
+                WaitingAssert.IsNotNull(
+                    window.GetErrorDialog,
+                    "The error message did not show up in a reasonable time.");
+
+                ITesteableErrorDialog dialog = window.GetErrorDialog();
+
+                Assert.AreEqual(
+                    "Error", dialog.GetTitle(),
+                    "The error dialog's title does not match the expected one.");
+
+                Assert.AreEqual(
+                    "The element Hello is already in the list, and thus it can't be added!",
+                    dialog.GetMessage(),
+                    "The error dialog's text does not match the expected one.");
+
+                dialog.ClickOkButton();
+            }
+            catch (Exception ex)
+            {
+                mLog.Error(ex.Message);
+                mLog.Error(ex.StackTrace);
+            }
+        }
+
+        void DoRemoveUnexistingElementTest(string testName)
+        {
+            try
+            {
+                ITesteableApplicationWindow window =
+                    GuiTesteableServices.GetApplicationWindow();
+
+                window.ChangeText("Hello");
+                window.ClickRemoveButton();
+
+                WaitingAssert.AreEqual(
+                    "Removing element Hello...",
+                    window.GetProgressMessage,
+                    "The progress message did not match the expected one " +
+                        "while removing 'Hello'.");
+
+                WaitingAssert.IsNotNull(
+                    window.GetErrorDialog,
+                    "The error message did not show up in a reasonable time.");
+
+                ITesteableErrorDialog dialog = window.GetErrorDialog();
+
+                Assert.AreEqual(
+                    "Error", dialog.GetTitle(),
+                    "The error dialog's title does not match the expected one.");
+
+                Assert.AreEqual(
+                    "The element Hello is not in the list, and thus it can't be removed!",
+                    dialog.GetMessage(),
+                    "The error dialog's text does not match the expected one.");
+
+                dialog.ClickOkButton();
+            }
+            catch (Exception ex)
+            {
+                mLog.Error(ex.Message);
+                mLog.Error(ex.StackTrace);
+            }
+        }
+
+        void DoThisTestWillFailAtTheEndTest(string testName)
+        {
+            try
+            {
+                ITesteableApplicationWindow window =
+                    GuiTesteableServices.GetApplicationWindow();
+
+                window.ChangeText("Hello");
+                window.ClickAddButton();
+
+                WaitingAssert.AreEqual(
+                    "Adding element Hello...",
+                    window.GetProgressMessage,
+                    "The progress message does not match the expected one " +
+                        "while adding 'Hello'.");
+
+                WaitingAssert.IsTrue(
+                    window.AreButtonsEnabled,
+                    "The window buttons were not re-enabled in a reasonable time.");
+
+                Assert.IsEmpty(
+                    window.GetText(),
+                    "The window's text should be empty after the buttons are re-enabled.");
+
+                window.ChangeText("Hello");
+                window.ClickAddButton();
+
+                WaitingAssert.AreEqual(
+                    "Adding element Hello...",
+                    window.GetProgressMessage,
+                    "The progress message does not match the expected one " +
+                        "while adding 'Hello'.");
+
+                WaitingAssert.IsTrue(
+                    window.AreButtonsEnabled,
+                    "The window buttons were not re-enabled in a reasonable time.");
+
+                // This test is exactly the same as AddExistingElementTest,
+                // but because we __didn't__ expect any dialog, we won't dismiss it.
+
+                // WaitingAssert.IsNotNull(
+                //     window.GetErrorDialog,
+                //     "The error message did not show in a reasonable time.");
+
+                // ITesteableErrorDialog dialog = window.GetErrorDialog();
+
+                // Assert.AreEqual(
+                //     "Error", dialog.GetTitle(),
+                //     "The error dialog's title does not match the expected one.");
+
+                // Assert.AreEqual(
+                //     "The element Hello is already in the list, and thus it can't be added!",
+                //     dialog.GetMessage(),
+                //     "The error dialog's text does not match the expected one.");
+
+                // dialog.ClickOkButton();
+            }
+            catch (Exception ex)
+            {
+                mLog.Error(ex.Message);
+                mLog.Error(ex.StackTrace);
             }
         }
 
