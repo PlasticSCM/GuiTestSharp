@@ -44,9 +44,6 @@ namespace Codice.Examples.GuiTesting.Windows
                 return;
 
             mActiveDialog = dialog;
-
-            if (dialog is ITesteableErrorDialog)
-                GuiTesteableServices.SetErrorDialog((ITesteableErrorDialog)dialog);
         }
 
         internal static void RemoveDialogForTesting(Form dialog)
@@ -56,9 +53,20 @@ namespace Codice.Examples.GuiTesting.Windows
 
             if (mActiveDialog == dialog)
                 mActiveDialog = null;
+        }
 
-            if (dialog is ITesteableErrorDialog)
-                GuiTesteableServices.SetErrorDialog(null);
+        internal static Form GetActiveDialog()
+        {
+            if (mActiveDialog == null)
+                return null;
+
+            // Although by this point the Form is created, it might not be
+            // visible yet, so it's handle is not created.
+            // If the handle is not created, all Invoke and BeginInvoke calls
+            // will fail, so we'll have to wait.
+            while (!mActiveDialog.IsHandleCreated) { }
+
+            return mActiveDialog;
         }
 
         internal static void LaunchTest(string testInfoFile, string pathToAssemblies)

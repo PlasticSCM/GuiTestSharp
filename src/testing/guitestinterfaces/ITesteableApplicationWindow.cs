@@ -15,5 +15,7 @@
 
         string GetProgressMessage();
         string GetErrorMessage();
+
+        ITesteableErrorDialog GetErrorDialog();
     }
 }

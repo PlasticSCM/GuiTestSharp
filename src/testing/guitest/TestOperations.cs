@@ -55,14 +55,18 @@ namespace GuiTest
 
         static void CheckUnexpectedMessages()
         {
-            ITesteableErrorDialog errorDialog = GuiTesteableServices.GetErrorDialog();
+            ITesteableApplicationWindow window = GuiTesteableServices.GetApplicationWindow();
 
-            if (errorDialog != null)
-            {
-                Assert.Fail(
-                    "The test finished with an unexpected error dialog still showing up: {0}",
-                    errorDialog.GetText());
-            }
+            if (window == null)
+                return;
+
+            ITesteableErrorDialog errorDialog = window.GetErrorDialog();
+            if (errorDialog == null)
+                return;
+
+            Assert.Fail(
+                "The test finished with an unexpected error dialog still showing up: {0}",
+                errorDialog.GetMessage());
 
             // Here you would check for the rest of possible dialogs your
             // application can show.

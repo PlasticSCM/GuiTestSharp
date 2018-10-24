@@ -62,6 +62,18 @@ namespace Codice.Examples.GuiTesting.Windows.Testing
             return mHelper.GetText(mWindow.ProgressControls.ProgressLabel);
         }
 
+        ITesteableErrorDialog ITesteableApplicationWindow.GetErrorDialog()
+        {
+            if (WindowHandler.GetActiveDialog() == null)
+                return null;
+
+            ErrorDialog errorDialog = WindowHandler.GetActiveDialog() as ErrorDialog;
+            if (errorDialog == null)
+                return null;
+
+            return new TesteableErrorDialog(errorDialog);
+        }
+
         readonly ApplicationWindow mWindow;
         readonly TestHelper mHelper;
     }
