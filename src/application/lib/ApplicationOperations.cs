@@ -98,7 +98,9 @@ namespace Codice.Examples.GuiTesting.Lib
 
                     if (waiter.Exception != null)
                     {
-                        progressControls.ShowError(waiter.Exception.Message);
+                        GuiMessage.ShowError(
+                            Localization.GetText(Localization.Name.ErrorTitle),
+                            waiter.Exception.Message);
                         return;
                     }
 
