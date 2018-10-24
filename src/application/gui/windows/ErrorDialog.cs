@@ -14,9 +14,9 @@ namespace Codice.Examples.GuiTesting.Windows
 
         internal ErrorDialog(string title, string message)
         {
-            Text = title;
             BuildComponents();
 
+            Text = title;
             mMessageLabel.Text = message;
         }
 
@@ -42,14 +42,22 @@ namespace Codice.Examples.GuiTesting.Windows
             MinimizeBox = false;
             MaximizeBox = false;
 
-            ControlPacker.AddControl(
-                this, ControlBuilder.CreateVerticalPadding(DockStyle.Top));
-            ControlPacker.AddControl(this, BuildMessagePanel());
-            ControlPacker.AddControl(
-                this, ControlBuilder.CreateVerticalPadding(DockStyle.Top));
-            ControlPacker.AddControl(this, BuildButtonPanel());
-            ControlPacker.AddControl(
-                this, ControlBuilder.CreateVerticalPadding(DockStyle.Bottom));
+            SuspendLayout();
+            try
+            {
+                ControlPacker.AddControl(
+                    this, ControlBuilder.CreateVerticalPadding(DockStyle.Top));
+                ControlPacker.AddControl(this, BuildMessagePanel());
+                ControlPacker.AddControl(
+                    this, ControlBuilder.CreateVerticalPadding(DockStyle.Top));
+                ControlPacker.AddControl(this, BuildButtonPanel());
+                ControlPacker.AddControl(
+                    this, ControlBuilder.CreateVerticalPadding(DockStyle.Bottom));
+            }
+            finally
+            {
+                ResumeLayout();
+            }
         }
 
         Panel BuildMessagePanel()

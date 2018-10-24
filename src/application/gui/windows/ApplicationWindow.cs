@@ -64,22 +64,30 @@ namespace Codice.Examples.GuiTesting.Windows
         #region UI building code
         void BuildComponents()
         {
-            ControlPacker.AddControl(
-                this, ControlBuilder.CreateVerticalPadding(DockStyle.Top));
-            ControlPacker.AddControl(this, BuildTextInputPanel());
-            ControlPacker.AddControl(
-                this, ControlBuilder.CreateVerticalPadding(DockStyle.Top));
-            ControlPacker.AddControl(this, BuildButtonsPanel());
-            ControlPacker.AddControl(
-                this, ControlBuilder.CreateVerticalPadding(DockStyle.Top));
-            ControlPacker.AddControl(this, BuildListBoxPanel());
-            ControlPacker.AddControl(
-                this, ControlBuilder.CreateVerticalPadding(DockStyle.Bottom));
-            ControlPacker.AddControl(this, BuildProgressTextPanel());
+            SuspendLayout();
+            try
+            {
+                ControlPacker.AddControl(
+                    this, ControlBuilder.CreateVerticalPadding(DockStyle.Top));
+                ControlPacker.AddControl(this, BuildTextInputPanel());
+                ControlPacker.AddControl(
+                    this, ControlBuilder.CreateVerticalPadding(DockStyle.Top));
+                ControlPacker.AddControl(this, BuildButtonsPanel());
+                ControlPacker.AddControl(
+                    this, ControlBuilder.CreateVerticalPadding(DockStyle.Top));
+                ControlPacker.AddControl(this, BuildListBoxPanel());
+                ControlPacker.AddControl(
+                    this, ControlBuilder.CreateVerticalPadding(DockStyle.Bottom));
+                ControlPacker.AddControl(this, BuildProgressTextPanel());
 
-            mProgressControls = new ProgressControls(
-                mProgressLabel,
-                new Control[] { mTextBox, mRemoveButton, mAddButton, mListBox });
+                mProgressControls = new ProgressControls(
+                    mProgressLabel,
+                    new Control[] { mTextBox, mRemoveButton, mAddButton, mListBox });
+            }
+            finally
+            {
+                ResumeLayout();
+            }
 
             mAddButton.Click += AddButton_Click;
             mRemoveButton.Click += RemoveButton_Click;
