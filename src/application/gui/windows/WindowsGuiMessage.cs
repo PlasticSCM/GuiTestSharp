@@ -9,12 +9,19 @@ namespace Codice.Examples.GuiTesting.Windows
         void GuiMessage.IGuiMessage.ShowError(string title, string message)
         {
             Form dialog = new ErrorDialog(title, message);
+            dialog.StartPosition = FormStartPosition.CenterParent;
+
             WindowHandler.SetActiveDialogForTesting(dialog);
 
-            dialog.StartPosition = FormStartPosition.CenterParent;
-            dialog.ShowDialog(WindowHandler.ApplicationWindow);
-
-            WindowHandler.RemoveDialogForTesting(dialog);
+            try
+            {
+                dialog.ShowDialog(WindowHandler.ApplicationWindow);
+            }
+            finally
+            {
+                WindowHandler.RemoveDialogForTesting(dialog);
+                dialog.Dispose();
+            }
         }
     }
 }
