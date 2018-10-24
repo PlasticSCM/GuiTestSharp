@@ -1,7 +1,7 @@
 ﻿using Codice.Examples.GuiTesting.GuiTestInterfaces;
 using Codice.Examples.GuiTesting.Windows.Testing;
 
-namespace Codice.Examples.GuiTesting.Windows.testing
+namespace Codice.Examples.GuiTesting.Windows.Testing
 {
     internal class TesteableErrorDialog : ITesteableErrorDialog
     {
@@ -13,7 +13,7 @@ namespace Codice.Examples.GuiTesting.Windows.testing
 
         void ITesteableErrorDialog.ClickOkButton()
         {
-            mHelper.ClickButton(mErrorDialog.OkButton);
+            mHelper.ClickDialogResultButton(mErrorDialog.OkButton);
         }
 
         string ITesteableErrorDialog.GetTitle()
@@ -21,7 +21,7 @@ namespace Codice.Examples.GuiTesting.Windows.testing
             return mHelper.GetText(mErrorDialog);
         }
 
-        string ITesteableErrorDialog.GetText()
+        string ITesteableErrorDialog.GetMessage()
         {
             return mHelper.GetText(mErrorDialog.MessageLabel);
         }

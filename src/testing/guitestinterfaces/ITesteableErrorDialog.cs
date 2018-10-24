@@ -5,6 +5,6 @@
         void ClickOkButton();
 
         string GetTitle();
-        string GetText();
+        string GetMessage();
     }
 }

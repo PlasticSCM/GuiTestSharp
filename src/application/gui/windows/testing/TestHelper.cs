@@ -12,7 +12,7 @@ namespace Codice.Examples.GuiTesting.Windows.Testing
         internal string GetText(Control control)
         {
             string result = string.Empty;
-            control.Invoke((MethodInvoker)delegate
+            mControl.Invoke((MethodInvoker)delegate
             {
                 result = control.Text;
             });
@@ -22,7 +22,7 @@ namespace Codice.Examples.GuiTesting.Windows.Testing
 
         internal void SetText(Control control, string text)
         {
-            control.Invoke((MethodInvoker)delegate
+            mControl.Invoke((MethodInvoker)delegate
             {
                 control.Text = text;
             });
@@ -34,6 +34,16 @@ namespace Codice.Examples.GuiTesting.Windows.Testing
             {
                 button.PerformClick();
             });
+        }
+
+        internal void ClickDialogResultButton(Button button)
+        {
+            mControl.Invoke((MethodInvoker)delegate
+            {
+                button.PerformClick();
+            });
+
+            while (!mControl.IsDisposed) { }
         }
 
         internal bool IsEnabled(Control control)
