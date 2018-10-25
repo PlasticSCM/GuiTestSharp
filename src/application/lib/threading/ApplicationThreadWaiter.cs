@@ -123,7 +123,6 @@ namespace Codice.Examples.GuiTesting.Lib.Threading
 
         IApplicationTimer mPlasticTimer;
         ApplicationThread mThreadOperation;
-        ApplicationThread.Operation mTimerTickDelegate;
         ApplicationThread.Operation mAfterOperationDelegate;
     }
 }
