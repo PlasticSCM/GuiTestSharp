@@ -6,6 +6,7 @@ namespace Codice.Examples.GuiTesting.Lib
     {
         public enum Name
         {
+            ApplicationName,
             Ok,
             AddButton,
             RemoveButton,
@@ -21,6 +22,7 @@ namespace Codice.Examples.GuiTesting.Lib
         Localization()
         {
             mTexts = new Dictionary<Name, string>();
+            mTexts.Add(Name.ApplicationName, "GUI Testing example");
             mTexts.Add(Name.Ok, "OK");
             mTexts.Add(Name.AddButton, "Add");
             mTexts.Add(Name.RemoveButton, "Remove");

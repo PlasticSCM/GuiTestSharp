@@ -20,6 +20,8 @@ namespace Codice.Examples.GuiTesting.Windows
         {
             mOperations = operations;
             BuildComponents();
+
+            Text = Localization.GetText(Localization.Name.ApplicationName);
         }
 
         protected override void Dispose(bool disposing)
