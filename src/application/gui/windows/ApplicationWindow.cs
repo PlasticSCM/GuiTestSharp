@@ -26,8 +26,11 @@ namespace Codice.Examples.GuiTesting.Windows
 
         protected override void Dispose(bool disposing)
         {
-            mAddButton.Click -= AddButton_Click;
-            mRemoveButton.Click -= RemoveButton_Click;
+            if (disposing)
+            {
+                mAddButton.Click -= AddButton_Click;
+                mRemoveButton.Click -= RemoveButton_Click;
+            }
 
             base.Dispose(disposing);
         }
