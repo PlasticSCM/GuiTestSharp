@@ -63,7 +63,7 @@ namespace Codice.Examples.GuiTesting.Windows
             assemblies.Add("pnunit.framework.dll");
 
             assemblies.Add("guitestinterfaces.dll");
-            assemblies.Add("guitests.dll");
+            assemblies.Add("guitest.dll");
 
             GuiTestRunner.GuiTestAssemblyResolver.InstallAssemblyResolver(
                 pathToAssemblies, assemblies);
