@@ -27,6 +27,7 @@ namespace Codice.Examples.GuiTesting.Windows
         {
             ApplicationOperations operations = new ApplicationOperations();
             mApplicationWindow = new ApplicationWindow(operations);
+            mApplicationWindow.StartPosition = FormStartPosition.CenterScreen;
             mApplicationWindow.Show();
         }
 
