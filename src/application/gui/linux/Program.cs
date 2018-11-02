@@ -40,9 +40,12 @@ namespace Codice.Examples.GuiTesting.Linux
 
                 Application.Run();
             }
-            catch
+            catch (Exception ex)
             {
-                // You would track the exception here.
+                // You would track the exception here
+                Console.Error.WriteLine($"{ex.GetType()}: {ex.Message}");
+                Console.Error.WriteLine(ex.StackTrace);
+
                 ExitCode = 1;
                 Application.Quit();
             }
