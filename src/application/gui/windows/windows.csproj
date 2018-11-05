@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{20C1F257-2ADF-4E38-AE86-F167E284AF99}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Codice.Examples.GuiTesting.Windows</RootNamespace>
+    <AssemblyName>windows</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\bin\application\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\lib\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.core">
+      <HintPath>..\..\..\..\lib\nunit\nunit.core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.core.interfaces">
+      <HintPath>..\..\..\..\lib\nunit\nunit.core.interfaces.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.util">
+      <HintPath>..\..\..\..\lib\nunit\nunit.util.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\lib\pnunit\agent\AssemblyPreload.cs">
+      <Link>testing\AssemblyPreload.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\lib\pnunit\agent\TestConsoleAccess.cs">
+      <Link>testing\TestConsoleAccess.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\lib\pnunit\guitest\GuiTestRunner.cs">
+      <Link>testing\GuiTestRunner.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\lib\pnunit\pnunittestrunner\PNUnitTestRunner.cs">
+      <Link>testing\PNUnitTestRunner.cs</Link>
+    </Compile>
+    <Compile Include="ApplicationWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ErrorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExceptionsHandler.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="testing\TesteableApplicationWindow.cs" />
+    <Compile Include="testing\TesteableErrorDialog.cs" />
+    <Compile Include="testing\TestHelper.cs" />
+    <Compile Include="threading\WinApplicationTimer.cs" />
+    <Compile Include="ui\ControlBuilder.cs" />
+    <Compile Include="ui\ControlPacker.cs" />
+    <Compile Include="ui\ProgressControls.cs" />
+    <Compile Include="WindowHandler.cs" />
+    <Compile Include="WindowsGuiMessage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\lib\pnunit\pnunit.framework\pnunit.framework.csproj">
+      <Project>{5261aba1-98e6-4603-a4f0-59cac307ac68}</Project>
+      <Name>pnunit.framework</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\testing\guitestinterfaces\guitestinterfaces.csproj">
+      <Project>{d775e82d-4045-4e11-ae85-4402ca0ad054}</Project>
+      <Name>guitestinterfaces</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\lib.csproj">
+      <Project>{a1079fa8-882b-40d6-a289-3a13767cabdd}</Project>
+      <Name>lib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
