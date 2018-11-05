@@ -108,5 +108,16 @@ namespace Codice.Examples.GuiTesting.Linux
         Label mProgressLabel;
 
         readonly ApplicationOperations mOperations;
+
+        class ApplicationListViewColumnRenderer
+        {
+            internal void RenderText(
+                TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+            {
+                // If you had a more complex object per row, you would use the column
+                // to know which property of the object you should use.
+                CellContentRenderer.RenderText(cell, (string)model.GetValue(iter, 0));
+            }
+        }
     }
 }
