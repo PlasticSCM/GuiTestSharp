@@ -51,6 +51,7 @@
     <Reference Include="nunit.util">
       <HintPath>..\..\..\..\lib\nunit\nunit.util.dll</HintPath>
     </Reference>
+    <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -76,11 +77,14 @@
     <Compile Include="testing\TesteableErrorDialog.cs" />
     <Compile Include="threading\GtkApplicationTimer.cs" />
     <Compile Include="ui\AlignmentBuilder.cs" />
+    <Compile Include="ui\CellContentRenderer.cs" />
     <Compile Include="ui\ControlBuilder.cs" />
     <Compile Include="ui\ControlPacker.cs" />
+    <Compile Include="ui\GtkListView.cs" />
     <Compile Include="ui\Keyboard.cs" />
     <Compile Include="ui\Mouse.cs" />
     <Compile Include="ui\ProgressControls.cs" />
+    <Compile Include="ui\TreeBuilder.cs" />
     <Compile Include="WindowHandler.cs" />
   </ItemGroup>
   <ItemGroup>
