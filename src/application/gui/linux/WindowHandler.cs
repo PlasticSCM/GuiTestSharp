@@ -1,5 +1,8 @@
-﻿using Codice.Examples.GuiTesting.Lib;
-using System;
+﻿using System;
+
+using Gtk;
+
+using Codice.Examples.GuiTesting.Lib;
 
 namespace Codice.Examples.GuiTesting.Linux
 {
@@ -9,8 +12,15 @@ namespace Codice.Examples.GuiTesting.Linux
         {
             ApplicationOperations operations = new ApplicationOperations();
             mApplicationWindow = new ApplicationWindow(operations);
-            mApplicationWindow.Show();
-            mApplicationWindow.Present();
+            mApplicationWindow.ShowAll();
+        }
+
+        internal static void UnregisterApplicationWindow()
+        {
+            mApplicationWindow.Dispose();
+            mApplicationWindow = null;
+
+            TerminateApplication();
         }
 
         internal static void LaunchTest(string testInfoFile, string pathToAssemblies)
@@ -18,6 +28,15 @@ namespace Codice.Examples.GuiTesting.Linux
             throw new NotImplementedException();
         }
 
+        static void TerminateApplication()
+        {
+            if (mbIsTestRun)
+                return;
+
+            Application.Quit();
+        }
+
         static ApplicationWindow mApplicationWindow;
+        static bool mbIsTestRun = false;
     }
 }

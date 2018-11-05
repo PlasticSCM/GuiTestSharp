@@ -28,9 +28,16 @@ namespace Codice.Examples.GuiTesting.Linux
             throw new NotImplementedException();
         }
 
+        void ApplicationWindow_DeleteEvent(object sender, DeleteEventArgs e)
+        {
+            WindowHandler.UnregisterApplicationWindow();
+        }
+
         void InitializeWindow()
         {
             Title = Localization.GetText(Localization.Name.ApplicationName);
+
+            DeleteEvent += ApplicationWindow_DeleteEvent;
         }
 
         void BuildComponents()
@@ -46,7 +53,6 @@ namespace Codice.Examples.GuiTesting.Linux
             mRemoveButton.Clicked += RemoveButton_Clicked;
 
             Add(result);
-            ShowAll();
         }
 
         HBox BuildTextEntryBox()
