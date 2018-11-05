@@ -17,9 +17,24 @@ namespace Codice.Examples.GuiTesting.Linux.UI
             label.SetAlignment(1, (float)0.5);
         }
 
+        internal static Alignment LeftPadding(Widget widget, uint leftPadding)
+        {
+            return Padding(widget, 0, 0, leftPadding, 0);
+        }
+
         internal static Alignment RightPadding(Widget widget, uint rightPadding)
         {
-            return TopBottomLeftRightPadding(widget, 0, 0, 0, rightPadding);
+            return Padding(widget, 0, 0, 0, rightPadding);
+        }
+
+        internal static Alignment LeftRightPadding(Widget widget, uint leftRightPadding)
+        {
+            return Padding(widget, 0, 0, leftRightPadding, leftRightPadding);
+        }
+
+        internal static Alignment TopBottomPadding(Widget widget, uint topBottomPadding)
+        {
+            return Padding(widget, topBottomPadding, topBottomPadding, 0, 0);
         }
 
         internal static Alignment RightAlignment(Widget widget)
@@ -30,7 +45,7 @@ namespace Codice.Examples.GuiTesting.Linux.UI
             return result;
         }
 
-        static Alignment TopBottomLeftRightPadding(
+        static Alignment Padding(
             Widget widget,
             uint topPadding,
             uint bottomPadding,

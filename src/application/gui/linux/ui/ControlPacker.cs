@@ -13,5 +13,17 @@ namespace Codice.Examples.GuiTesting.Linux.UI
         {
             box.PackStart(widget, true, true, padding);
         }
+
+        internal static void PackActionButtons(HBox box, uint padding, params Widget[] buttons)
+        {
+            HBox buttonsBox = new HBox();
+
+            Add(buttonsBox, buttons[0]);
+            for (int i = 1; i < buttons.Length; i++)
+                Add(buttonsBox, AlignmentBuilder.LeftPadding(buttons[i], padding));
+
+            Fill(box, ControlBuilder.CreateEmptyArea());
+            Add(box, buttonsBox);
+        }
     }
 }

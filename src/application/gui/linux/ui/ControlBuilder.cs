@@ -27,6 +27,11 @@ namespace Codice.Examples.GuiTesting.Linux.UI
             return result;
         }
 
+        internal static Widget CreateEmptyArea()
+        {
+            return new HBox(true, 0);
+        }
+
         const int DEFAULT_BUTTON_WIDTH = 100;
         const int DEFAULT_BUTTON_HEIGHT = 34;
     }
