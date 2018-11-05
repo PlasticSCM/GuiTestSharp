@@ -52,10 +52,11 @@ namespace Codice.Examples.GuiTesting.Linux
             mAddButton.Clicked += AddButton_Clicked;
             mRemoveButton.Clicked += RemoveButton_Clicked;
 
-            Add(result);
+            Add(AlignmentBuilder.LeftRightPadding(
+                result, AlignmentBuilder.SMALL_PADDING));
         }
 
-        HBox BuildTextEntryBox()
+        Widget BuildTextEntryBox()
         {
             HBox result = new HBox();
 
@@ -65,14 +66,15 @@ namespace Codice.Examples.GuiTesting.Linux
 
             mTextEntry = ControlBuilder.CreateEntry();
 
-            ControlPacker.Fill(result, textEntryLabel);
             ControlPacker.Add(result, AlignmentBuilder.RightPadding(
-                mTextEntry, AlignmentBuilder.SMALL_PADDING));
+                textEntryLabel, AlignmentBuilder.SMALL_PADDING));
+            ControlPacker.Fill(result, mTextEntry);
 
-            return result;
+            return AlignmentBuilder.TopBottomPadding(
+                result, AlignmentBuilder.SMALL_PADDING);
         }
 
-        HBox BuildButtonsBox()
+        Widget BuildButtonsBox()
         {
             HBox result = new HBox();
 
@@ -80,28 +82,22 @@ namespace Codice.Examples.GuiTesting.Linux
                 Localization.GetText(Localization.Name.AddButton));
             mRemoveButton = ControlBuilder.CreateButton(
                 Localization.GetText(Localization.Name.RemoveButton));
+                
+            ControlPacker.PackActionButtons(
+                result,
+                AlignmentBuilder.SMALL_PADDING,
+                mAddButton, mRemoveButton);
 
-            HBox buttonsBox = new HBox();
-            ControlPacker.Add(
-                buttonsBox,
-                AlignmentBuilder.RightPadding(
-                    mAddButton, AlignmentBuilder.SMALL_PADDING));
-            ControlPacker.Add(
-                buttonsBox,
-                AlignmentBuilder.RightPadding(
-                    mRemoveButton, AlignmentBuilder.SMALL_PADDING));
-
-            ControlPacker.Add(result, AlignmentBuilder.RightAlignment(buttonsBox));
-
-            return result;
+            return AlignmentBuilder.TopBottomPadding(
+                result, AlignmentBuilder.SMALL_PADDING);
         }
 
-        //HBox BuildListBox()
+        //Widget BuildListBox()
         //{
 
         //}
 
-        //HBox BuildProgressTextBox()
+        //Widget BuildProgressTextBox()
         //{
 
         //}
