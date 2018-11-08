@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +11,11 @@ namespace Codice.Examples.GuiTesting.Linux.UI
     internal static class AlignmentBuilder
     {
         internal const int SMALL_PADDING = 5;
+
+        internal static void SetLeftAlignment(Label label)
+        {
+            label.SetAlignment(0, (float)0.5);
+        }
 
         internal static void SetRightAlignment(Label label)
         {

@@ -20,10 +20,23 @@ namespace Codice.Examples.GuiTesting.Linux.UI
 
         internal static Label CreateLabel(string text)
         {
-            Label result = new Label();
-            result.SetPadding(5, 0);
+            Label result = CreateLabel();
             result.Name = text;
             result.LabelProp = Mono.Unix.Catalog.GetString(text);
+            return result;
+        }
+
+        internal static Label CreateSelectableLabel()
+        {
+            Label result = CreateLabel();
+            result.Selectable = true;
+            return result;
+        }
+
+        internal static Label CreateLabel()
+        {
+            Label result = new Label();
+            result.SetPadding(5, 0);
             return result;
         }
 

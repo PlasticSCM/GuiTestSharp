@@ -25,5 +25,14 @@ namespace Codice.Examples.GuiTesting.Linux.UI
             Fill(box, ControlBuilder.CreateEmptyArea());
             Add(box, buttonsBox);
         }
+
+        internal static void PackProgressLabel(HBox box, Label progressLabel)
+        {
+            box.HeightRequest = PROGRESS_PANEL_HEIGHT;
+            AlignmentBuilder.SetLeftAlignment(progressLabel);
+            Fill(box, progressLabel);
+        }
+
+        const int PROGRESS_PANEL_HEIGHT = 22;
     }
 }
