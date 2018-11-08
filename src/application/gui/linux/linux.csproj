@@ -34,7 +34,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL"/>
+    <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL" />
     <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL" />
     <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL" />
     <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL" />
@@ -78,6 +78,7 @@
     <Compile Include="testing\TesteableErrorDialog.cs" />
     <Compile Include="threading\GtkApplicationTimer.cs" />
     <Compile Include="ui\AlignmentBuilder.cs" />
+    <Compile Include="ui\BaseDialog.cs" />
     <Compile Include="ui\CellContentRenderer.cs" />
     <Compile Include="ui\ControlBuilder.cs" />
     <Compile Include="ui\ControlPacker.cs" />
