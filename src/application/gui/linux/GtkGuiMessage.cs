@@ -1,9 +1,6 @@
-﻿using Codice.Examples.GuiTesting.Lib.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Codice.Examples.GuiTesting.Lib.Interfaces;
+using Codice.Examples.GuiTesting.Linux.UI;
 
 namespace Codice.Examples.GuiTesting.Linux
 {
@@ -11,7 +8,17 @@ namespace Codice.Examples.GuiTesting.Linux
     {
         void GuiMessage.IGuiMessage.ShowError(string title, string message)
         {
-            throw new NotImplementedException();
+            BaseDialog dialog = new ErrorDialog(
+                title, message, WindowHandler.ApplicationWindow);
+
+            try
+            {
+                dialog.RunModal();
+            }
+            finally
+            {
+                dialog.Dispose();
+            }
         }
     }
 }
