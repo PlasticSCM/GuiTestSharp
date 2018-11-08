@@ -7,6 +7,12 @@ namespace Codice.Examples.GuiTesting.Linux.UI
         internal delegate Gtk.TreePath FindRowFunc(Gtk.TreeModel model, T value);
 
         internal readonly Gtk.TreeView View;
+        
+        internal bool HeadersVisible
+        {
+            get { return View.HeadersVisible; }
+            set { View.HeadersVisible = value; }
+        }
 
         internal GtkListView(
             List<Gtk.TreeViewColumn> columns,
