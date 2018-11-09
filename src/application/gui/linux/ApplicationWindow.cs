@@ -11,6 +11,12 @@ namespace Codice.Examples.GuiTesting.Linux
 {
     internal class ApplicationWindow : Window, IApplicationWindow
     {
+        internal Entry TextEntry { get { return mTextEntry; } }
+        internal Button RemoveButton { get { return mRemoveButton; } }
+        internal Button AddButton { get { return mAddButton; } }
+        internal GtkListView<string> ListView { get { return mListView; } }
+        internal ProgressControls ProgressControls { get { return mProgressControls; } }
+
         internal ApplicationWindow(ApplicationOperations operations)
             : base(WindowType.Toplevel)
         {

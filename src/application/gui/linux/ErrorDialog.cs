@@ -7,6 +7,9 @@ namespace Codice.Examples.GuiTesting.Linux
 {
     internal class ErrorDialog : BaseDialog
     {
+        internal Button OkButton { get { return mOkButton; } }
+        internal Label MessageLabel { get { return mMessageLabel; } }
+
         internal ErrorDialog(string title, string message, Window parent)
             : base(title, parent)
         {
