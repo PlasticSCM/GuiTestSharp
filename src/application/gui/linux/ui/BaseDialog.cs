@@ -9,27 +9,26 @@ namespace Codice.Examples.GuiTesting.Linux.UI
             SetPosition(WindowPosition.CenterOnParent);
             BorderWidth = 10;
             Resizable = false;
+            HasSeparator = true;
         }
 
         public override void Dispose()
         {
-            WindowHandler.RemoveDialogForTesting(this);
             Destroy();
-
             base.Dispose();
         }
 
         internal void AddComponents(params Widget[] widgets)
         {
             foreach (Widget widget in widgets)
-            {
                 ControlPacker.Add(VBox, widget);
-            }
+
+            ShowAll();
         }
 
-        internal Button CreateAcceptButton(string buttonText)
+        internal Button CreateOkButton(string buttonText)
         {
-            return (Button) AddButton(buttonText, ResponseType.None);
+            return (Button)AddButton(buttonText, ResponseType.Ok);
         }
 
         internal ResponseType RunModal()

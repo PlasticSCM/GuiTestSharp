@@ -1,6 +1,4 @@
-﻿using System;
-using Codice.Examples.GuiTesting.Lib.Interfaces;
-using Codice.Examples.GuiTesting.Linux.UI;
+﻿using Codice.Examples.GuiTesting.Lib.Interfaces;
 
 namespace Codice.Examples.GuiTesting.Linux
 {
@@ -8,8 +6,10 @@ namespace Codice.Examples.GuiTesting.Linux
     {
         void GuiMessage.IGuiMessage.ShowError(string title, string message)
         {
-            BaseDialog dialog = new ErrorDialog(
+            ErrorDialog dialog = new ErrorDialog(
                 title, message, WindowHandler.ApplicationWindow);
+
+            WindowHandler.SetActiveDialogForTesting(dialog);
 
             try
             {
@@ -17,6 +17,7 @@ namespace Codice.Examples.GuiTesting.Linux
             }
             finally
             {
+                WindowHandler.RemoveDialogForTesting(dialog);
                 dialog.Dispose();
             }
         }
