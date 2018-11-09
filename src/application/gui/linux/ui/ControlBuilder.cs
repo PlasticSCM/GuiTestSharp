@@ -18,6 +18,22 @@ namespace Codice.Examples.GuiTesting.Linux.UI
             return new Entry();
         }
 
+        internal static Label CreateExplanationLabel(string text)
+        {
+            Label result = CreateLabel();
+            result.Name = text;
+            result.LabelProp = Mono.Unix.Catalog.GetString(text);
+            result.Justify = Justification.Left;
+            result.LineWrapMode = Pango.WrapMode.Word;
+            result.LineWrap = true;
+            result.SizeAllocated += (sender, args) =>
+            {
+                Label label = sender as Label;
+                label.SetSizeRequest(args.Allocation.Width - 1, -1);
+            };
+            return result;
+        }
+
         internal static Label CreateLabel(string text)
         {
             Label result = CreateLabel();
