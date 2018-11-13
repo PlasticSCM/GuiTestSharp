@@ -174,7 +174,7 @@ namespace Codice.Examples.GuiTesting.Linux
         {
             enum Columns
             {
-                Text
+                Text = 0
             }
 
             internal static GtkListView<string> Build()
