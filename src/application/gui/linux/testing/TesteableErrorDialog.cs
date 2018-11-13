@@ -1,24 +1,29 @@
-﻿using System;
-
-using Codice.Examples.GuiTesting.GuiTestInterfaces;
+﻿using Codice.Examples.GuiTesting.GuiTestInterfaces;
 
 namespace Codice.Examples.GuiTesting.Linux.Testing
 {
     internal class TesteableErrorDialog : ITesteableErrorDialog
     {
-        void ITesteableErrorDialog.ClickOkButton()
+        internal TesteableErrorDialog(ErrorDialog errorDialog)
         {
-            throw new NotImplementedException();
+            mDialog = errorDialog;
         }
 
-        string ITesteableErrorDialog.GetMessage()
+        void ITesteableErrorDialog.ClickOkButton()
         {
-            throw new NotImplementedException();
+            TestHelper.ClickDialogButton(mDialog.OkButton);
         }
 
         string ITesteableErrorDialog.GetTitle()
         {
-            throw new NotImplementedException();
+            return TestHelper.GetTitle(mDialog);
         }
+
+        string ITesteableErrorDialog.GetMessage()
+        {
+            return TestHelper.GetText(mDialog.MessageLabel);
+        }
+
+        readonly ErrorDialog mDialog;
     }
 }
