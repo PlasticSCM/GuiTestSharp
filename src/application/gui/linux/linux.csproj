@@ -82,6 +82,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="testing\TesteableApplicationWindow.cs" />
     <Compile Include="testing\TesteableErrorDialog.cs" />
+    <Compile Include="testing\TestHelper.cs" />
     <Compile Include="threading\GtkApplicationTimer.cs" />
     <Compile Include="ui\AlignmentBuilder.cs" />
     <Compile Include="ui\BaseDialog.cs" />
