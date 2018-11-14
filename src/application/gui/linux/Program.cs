@@ -23,6 +23,8 @@ namespace Codice.Examples.GuiTesting.Linux
 
                 ExceptionsHandler.SetExceptionHandlers(appArgs.IsTestingMode);
 
+                ProcessNameSetter.SetProcessName("linux");
+
                 ThreadWaiterBuilder.Initialize(new GtkApplicationTimerBuilder());
 
                 GuiMessage.Initialize(new GtkGuiMessage());

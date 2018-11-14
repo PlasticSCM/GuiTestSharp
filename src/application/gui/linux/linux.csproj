@@ -79,6 +79,7 @@
     <Compile Include="ErrorDialog.cs" />
     <Compile Include="ExceptionsHandler.cs" />
     <Compile Include="GtkGuiMessage.cs" />
+    <Compile Include="ProcessNameSetter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="testing\TesteableApplicationWindow.cs" />
     <Compile Include="testing\TesteableErrorDialog.cs" />
