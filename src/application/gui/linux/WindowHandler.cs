@@ -1,8 +1,18 @@
 using System;
+using System.IO;
+using System.Reflection;
+using System.Threading;
 
 using Gtk;
 
+using log4net;
+using log4net.Config;
+using log4net.Repository;
+
+using GuiTest;
+using Codice.Examples.GuiTesting.GuiTestInterfaces;
 using Codice.Examples.GuiTesting.Lib;
+using Codice.Examples.GuiTesting.Linux.Testing;
 
 namespace Codice.Examples.GuiTesting.Linux
 {
@@ -52,7 +62,36 @@ namespace Codice.Examples.GuiTesting.Linux
 
         internal static void LaunchTest(string testInfoFile, string pathToAssemblies)
         {
-            throw new NotImplementedException();
+            mbIsTestRun = true;
+
+            ConfigureTestLogging();
+            InitTesteableServices();
+
+            GuiTestRunner testRunner = new GuiTestRunner(
+                testInfoFile, pathToAssemblies, new GuiFinalizer(), null);
+
+            ThreadPool.QueueUserWorkItem(new WaitCallback(testRunner.Run));
+        }
+
+        static void ConfigureTestLogging()
+        {
+            try
+            {
+                string log4netPath = Path.Combine(
+                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                    "pnunittestrunner.log.conf");
+
+                XmlConfigurator.Configure(mLogRepository, new FileInfo(log4netPath));
+            }
+            catch { } // Log config failed, nothing else to do!
+        }
+
+        static void InitTesteableServices()
+        {
+            TesteableApplicationWindow testeableWindow =
+                new TesteableApplicationWindow(mApplicationWindow);
+
+            GuiTesteableServices.Init(testeableWindow);
         }
 
         static void TerminateApplication()
@@ -66,5 +105,16 @@ namespace Codice.Examples.GuiTesting.Linux
         static ApplicationWindow mApplicationWindow;
         static Dialog mActiveDialog;
         static bool mbIsTestRun = false;
+
+        static readonly ILoggerRepository mLogRepository =
+            LogManager.CreateRepository("log4net-rep");
+
+        class GuiFinalizer : GuiTestRunner.IGuiFinalizer
+        {
+            void GuiTestRunner.IGuiFinalizer.Finalize(int exitCode)
+            {
+                Environment.Exit(exitCode);
+            }
+        }
     }
 }
