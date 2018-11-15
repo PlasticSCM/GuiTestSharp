@@ -6,6 +6,10 @@
     <RootNamespace>Codice.Examples.GuiTesting.GuiTestInterfaces</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\bin\pnunit\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\guitestinterfaces\GuiTesteableServices.cs" Link="GuiTesteableServices.cs" />
     <Compile Include="..\guitestinterfaces\ITesteableApplicationWindow.cs" Link="ITesteableApplicationWindow.cs" />

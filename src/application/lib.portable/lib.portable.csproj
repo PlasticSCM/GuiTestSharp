@@ -6,6 +6,10 @@
     <AssemblyName>lib</AssemblyName>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\bin\application\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\lib\ApplicationArgs.cs" Link="ApplicationArgs.cs" />
     <Compile Include="..\lib\ApplicationOperations.cs" Link="ApplicationOperations.cs" />
