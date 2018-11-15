@@ -3,7 +3,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Threading;
 using System.Diagnostics;
-using System.Reflection;
 
 using log4net;
 
@@ -15,7 +14,7 @@ namespace PNUnit.Agent
     {
         internal ProcessPool(
             string preloadTestRunners,
-            string pathToAssemblies, 
+            string pathToAssemblies,
             bool bNoTimeout)
         {
             if (string.IsNullOrEmpty(preloadTestRunners))
@@ -173,9 +172,24 @@ namespace PNUnit.Agent
 
             // You should customize this section depending on the applications
             // you've got and the platform they run on.
-            Process result = testInfo.TestName.StartsWith("windows:")
-                ? ProcessCreator.CreateWindowsRunnerProcess(testInfo, testingArgs, mPathToAssemblies)
-                : ProcessCreator.CreateTestRunnerProc(testingArgs, mPathToAssemblies);
+            Process result = null;
+
+            if (testInfo.TestName.StartsWith("windows:"))
+            {
+                result = ProcessCreator.CreateGuiApplicationRunnerProcess(
+                    testInfo, "windows.exe", testingArgs, mPathToAssemblies);
+            }
+
+            if (testInfo.TestName.StartsWith("linux:"))
+            {
+                result = ProcessCreator.CreateGuiApplicationRunnerProcess(
+                    testInfo, "linux", testingArgs, mPathToAssemblies);
+            }
+
+            if (result == null)
+            {
+                result = ProcessCreator.CreateTestRunnerProc(testingArgs, mPathToAssemblies);
+            }
 
             result.Start();
             return result;
@@ -304,7 +318,7 @@ namespace PNUnit.Agent
                         "Test killed due to timeout! [{0}]",
                         timedOutTest.TestInfo.TestName);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     mLog.ErrorFormat(
                         "An error occurred killing processes. Error:[{0} - {1}]", e.Message, e.StackTrace);
@@ -322,16 +336,16 @@ namespace PNUnit.Agent
                 Directory.CreateDirectory(path);
                 return;
             }
+
             try
             {
-                mLog.DebugFormat("CleanGuiTestsBaseWkPath: Deleting path:[{0}]", path);
+                mLog.DebugFormat(
+                    "CleanGuiTestsBaseWkPath: Deleting path:[{0}]", path);
 
                 Directory.Delete(path, true);
-
                 Directory.CreateDirectory(path);
-
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 mLog.WarnFormat(
                     "CleanGuiTestsBaseWkPath: Unable to clean path:[{0}]. Reason:{1}",
@@ -354,20 +368,26 @@ namespace PNUnit.Agent
 
         static class ProcessCreator
         {
-            internal static Process CreateWindowsRunnerProcess(
-                PNUnitTestInfo testInfo, string testingArgs, string pathToAssemblies)
+            internal static Process CreateGuiApplicationRunnerProcess(
+                PNUnitTestInfo testInfo,
+                string executableName,
+                string testingArgs,
+                string pathToAssemblies)
             {
                 if (testInfo.TestParams.Length == 0)
-                    throw new Exception("test is incorrectly defined");
+                    throw new Exception("The test is wrongly defined!");
 
                 string executablePath = Path.Combine(
                     pathToAssemblies, testInfo.TestParams[0]);
 
                 executablePath = Path.GetFullPath(executablePath);
 
-                string processName = Path.Combine(executablePath, "windows.exe");
+                string processName = Path.Combine(executablePath, executableName);
 
                 string arguments = string.Concat(testInfo.TestParams[1], " ", testingArgs);
+
+                mLog.DebugFormat(
+                    "Running process [{0} {1}]", processName, arguments);
 
                 Console.WriteLine(processName);
                 Console.WriteLine(arguments);
@@ -377,7 +397,6 @@ namespace PNUnit.Agent
                 testRunnerProc.StartInfo.FileName = processName;
                 testRunnerProc.StartInfo.CreateNoWindow = false;
                 testRunnerProc.StartInfo.WorkingDirectory = pathToAssemblies;
-
                 testRunnerProc.StartInfo.Arguments = arguments;
 
                 return testRunnerProc;
@@ -410,7 +429,8 @@ namespace PNUnit.Agent
         List<RunningTest> mRunningTests = new List<RunningTest>();
         Queue<Process> mPreloadedQueue = new Queue<Process>();
 
-        const string PNUNIT_TEST_RUNNER_PROC_NAME = "pnunittestrunner";
         static readonly ILog mLog = LogManager.GetLogger("ProcessPool");
+
+        const string PNUNIT_TEST_RUNNER_PROC_NAME = "pnunittestrunner";
     }
 }
