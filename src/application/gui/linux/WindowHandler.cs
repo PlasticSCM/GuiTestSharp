@@ -27,6 +27,7 @@ namespace Codice.Examples.GuiTesting.Linux
         {
             ApplicationOperations operations = new ApplicationOperations();
             mApplicationWindow = new ApplicationWindow(operations);
+            mApplicationWindow.WindowPosition = WindowPosition.Center;
             mApplicationWindow.ShowAll();
         }
 
