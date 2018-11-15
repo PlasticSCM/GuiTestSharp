@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Codice.Examples.GuiTesting.Lib</RootNamespace>
+    <AssemblyName>lib</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\lib\ApplicationArgs.cs" Link="ApplicationArgs.cs" />
+    <Compile Include="..\lib\ApplicationOperations.cs" Link="ApplicationOperations.cs" />
+    <Compile Include="..\lib\IGuiMessage.cs" Link="IGuiMessage.cs" />
+    <Compile Include="..\lib\Localization.cs" Link="Localization.cs" />
+    <Compile Include="..\lib\interfaces\IApplicationWindow.cs" Link="interfaces\IApplicationWindow.cs" />
+    <Compile Include="..\lib\interfaces\IProgressControls.cs" Link="interfaces\IProgressControls.cs" />
+    <Compile Include="..\lib\threading\ApplicationThread.cs" Link="threading\ApplicationThread.cs" />
+    <Compile Include="..\lib\threading\ApplicationThreadWaiter.cs" Link="threading\ApplicationThreadWaiter.cs" />
+  </ItemGroup>
+
+</Project>

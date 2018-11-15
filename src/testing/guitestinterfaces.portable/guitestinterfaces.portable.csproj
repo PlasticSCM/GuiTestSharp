@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>guitestinterfaces</AssemblyName>
+    <RootNamespace>Codice.Examples.GuiTesting.GuiTestInterfaces</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\guitestinterfaces\GuiTesteableServices.cs" Link="GuiTesteableServices.cs" />
+    <Compile Include="..\guitestinterfaces\ITesteableApplicationWindow.cs" Link="ITesteableApplicationWindow.cs" />
+    <Compile Include="..\guitestinterfaces\ITesteableErrorDialog.cs" Link="ITesteableErrorDialog.cs" />
+  </ItemGroup>
+
+</Project>
