@@ -17,6 +17,9 @@ namespace Codice.Examples.GuiTesting.Linux
 
         internal static void SetProcessName(string name)
         {
+            if (IsWindows())
+                return;
+
             try
             {
                 if (PrctlSetName(name) != 0)
@@ -51,6 +54,19 @@ namespace Codice.Examples.GuiTesting.Linux
         enum OPTION
         {
             PR_SET_NAME = 15
+        }
+
+        private static bool IsWindows()
+        {
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.Win32Windows:
+                case PlatformID.Win32NT:
+                case PlatformID.Win32S:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         static readonly ILog mLog = LogManager.GetLogger("ProcessNameSetter");
