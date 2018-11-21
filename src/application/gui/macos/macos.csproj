@@ -6,7 +6,7 @@
     <ProjectGuid>{6D9C8C74-3091-4963-BD5B-BF71A8611E01}</ProjectGuid>
     <ProjectTypeGuids>{A3F8F2AB-B479-4A4A-A458-A89E7DC349F1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>macos</RootNamespace>
+    <RootNamespace>Codice.Examples.GuiTesting.MacOS</RootNamespace>
     <AssemblyName>macOS App</AssemblyName>
     <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
     <UseXamMacFullFramework>true</UseXamMacFullFramework>
@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="threading\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -86,6 +87,10 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="MacOsGuiMessage.cs" />
+    <Compile Include="ExceptionsHandler.cs" />
+    <Compile Include="threading\MacApplicationTimer.cs" />
+    <Compile Include="WindowHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\testing\guitestinterfaces\guitestinterfaces.csproj">
