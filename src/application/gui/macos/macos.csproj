@@ -93,6 +93,7 @@
     <Compile Include="threading\MacApplicationTimer.cs" />
     <Compile Include="WindowHandler.cs" />
     <Compile Include="ui\NSBuilder.cs" />
+    <Compile Include="ui\NSViewPacker.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\testing\guitestinterfaces\guitestinterfaces.csproj">
