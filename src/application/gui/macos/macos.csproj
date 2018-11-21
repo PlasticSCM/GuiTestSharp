@@ -79,6 +79,7 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="threading\" />
+    <Folder Include="ui\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -91,6 +92,7 @@
     <Compile Include="ExceptionsHandler.cs" />
     <Compile Include="threading\MacApplicationTimer.cs" />
     <Compile Include="WindowHandler.cs" />
+    <Compile Include="ui\NSBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\testing\guitestinterfaces\guitestinterfaces.csproj">
