@@ -8,11 +8,21 @@ namespace Codice.Examples.GuiTesting.MacOS.UI
     {
         internal static readonly nfloat DEFAULT_COLUMN_WIDTH = 250.0f;
 
-        internal static NSButton CreateButton(string text)
+        internal static NSButton CreateDefaultButton(string text)
+        {
+            return CreateButton(text, NSBezelStyle.Rounded);
+        }
+
+        internal static NSButton CreateRoundButton(string text)
+        {
+            return CreateButton(text, NSBezelStyle.RoundRect);
+        }
+
+        internal static NSButton CreateButton(string text, NSBezelStyle bezelStyle)
         {
             NSButton result = new NSButton();
             result.Title = text;
-            result.BezelStyle = NSBezelStyle.RoundRect;
+            result.BezelStyle = bezelStyle;
 
             return result;
         }
