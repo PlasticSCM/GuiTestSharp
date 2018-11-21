@@ -94,6 +94,7 @@
     <Compile Include="WindowHandler.cs" />
     <Compile Include="ui\NSBuilder.cs" />
     <Compile Include="ui\NSViewPacker.cs" />
+    <Compile Include="ui\NSColors.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\testing\guitestinterfaces\guitestinterfaces.csproj">
