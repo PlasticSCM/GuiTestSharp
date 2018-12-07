@@ -27,6 +27,7 @@ namespace Codice.Examples.GuiTesting.MacOS
 
             ThreadWaiterBuilder.Initialize(new MacApplicationTimerBuilder());
 
+            WindowHandler.Initialize(this);
             GuiMessage.Initialize(new MacOsGuiMessage());
 
             NSApplication.SharedApplication.ActivateIgnoringOtherApps(true);
