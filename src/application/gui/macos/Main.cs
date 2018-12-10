@@ -1,20 +1,18 @@
-﻿using System;
-using System.Runtime.InteropServices;
-
-using AppKit;
+﻿using AppKit;
 
 namespace Codice.Examples.GuiTesting.MacOS
 {
     static class MainClass
     {
-        [DllImport("/System/Library/Frameworks/Cocoa.framework/Cocoa", EntryPoint = "NSApplicationLoad")]
-        static extern bool NSApplicationLoad();
-
         static void Main(string[] args)
         {
-            NSApplicationLoad();
-
             NSApplication.Init();
+
+            // You only need this hack if you removed your MainMenu.xib class,
+            // which is in charge of pointing out which is your Application's
+            // delegate.
+            NSApplication.SharedApplication.Delegate = new AppDelegate();
+
             NSApplication.Main(args);
         }
     }
