@@ -53,60 +53,51 @@ namespace Codice.Examples.GuiTesting.MacOS
 
         void AddButton_Activated(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+
         }
 
         void RemoveButton_Activated(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+
         }
         #endregion
 
         #region UI building code
         NSView BuildComponents()
         {
-            NSView result = BuildButtonsView();
+            NSView result = new NSView();
 
-            mAddButton.Activated += AddButton_Activated;
-            mRemoveButton.Activated += RemoveButton_Activated;
-
-            return result;
-        }
-
-        void MAddButton_Activated(object sender, EventArgs e)
-        {
-        }
-
-
-        NSView BuildTextInputView()
-        {
-            throw new NotImplementedException();
-        }
-
-        NSView BuildButtonsView()
-        {
+            NSTextField label = NSBuilder.CreateTextField(
+                Localization.GetText(Localization.Name.TextInputLabel),
+                NSTextAlignment.Right);
+            mTextField = NSBuilder.CreateInputTextField();
 
             mAddButton = NSBuilder.CreateRoundButton(
                 Localization.GetText(Localization.Name.AddButton));
             mRemoveButton = NSBuilder.CreateRoundButton(
                 Localization.GetText(Localization.Name.RemoveButton));
 
-            NSStackView result = new NSStackView();
-            result.UserInterfaceLayoutDirection = NSUserInterfaceLayoutDirection.RightToLeft;
-            result.AddView(mAddButton, NSStackViewGravity.Trailing);
-            result.AddView(mRemoveButton, NSStackViewGravity.Trailing);
+            NSViewPacker.PackViews(
+                result,
+                new string[]
+                {
+                    "H:|-[label(40)]-[textField]-|",
+                    "H:[removeButton(80)]-[addButton(80)]-|",
+                    "V:|-[label]-[removeButton]-|",
+                    "V:|-[textField]-[removeButton]-|",
+                    "V:|-[label]-[addButton]-|"
+                },
+                new NSDictionary(
+                    "label", label,
+                    "textField", mTextField,
+                    "removeButton", mRemoveButton,
+                    "addButton", mAddButton)
+                );
+
+            mAddButton.Activated += AddButton_Activated;
+            mRemoveButton.Activated += RemoveButton_Activated;
 
             return result;
-        }
-
-        NSView BuildTableView()
-        {
-            throw new NotImplementedException();
-        }
-
-        NSView BuildProgressTextPanel()
-        {
-            throw new NotImplementedException();
         }
         #endregion
 
