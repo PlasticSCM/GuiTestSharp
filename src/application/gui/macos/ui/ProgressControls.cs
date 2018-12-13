@@ -1,5 +1,3 @@
-using System;
-
 using AppKit;
 
 using Codice.Examples.GuiTesting.Lib.Interfaces;
@@ -24,15 +22,17 @@ namespace Codice.Examples.GuiTesting.MacOS.UI
             mbHasError = false;
 
             mProgressTextField.TextColor = NSColors.NotificationText;
-            mProgressTextField.Cell.Title = message;
-            // TODO: Show label
+            mProgressTextField.StringValue = message;
+            mProgressTextField.Hidden = false;
 
             mResponder = NSViewArray.GetFirstResponder(mWindow, mViews);
+
+            NSViewArray.Disable(mViews);
         }
 
         void IProgressControls.HideProgress()
         {
-            // TODO: Hide label
+            mProgressTextField.Hidden = true;
 
             NSViewArray.Enable(mViews);
 
@@ -45,8 +45,8 @@ namespace Codice.Examples.GuiTesting.MacOS.UI
             mbHasError = true;
 
             mProgressTextField.TextColor = NSColors.ErrorText;
-            mProgressTextField.Cell.Title = message;
-            // TODO: Show label
+            mProgressTextField.StringValue = message;
+            mProgressTextField.Hidden = false;
         }
 
         NSResponder mResponder;
