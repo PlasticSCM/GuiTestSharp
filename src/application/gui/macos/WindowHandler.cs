@@ -1,9 +1,20 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 using AppKit;
 using Foundation;
 
+using log4net;
+using log4net.Repository;
+
+using GuiTest;
+
+using Codice.Examples.GuiTesting.GuiTestInterfaces;
 using Codice.Examples.GuiTesting.Lib;
+using Codice.Examples.GuiTesting.MacOS.Testing;
 
 namespace Codice.Examples.GuiTesting.MacOS
 {
@@ -29,37 +40,61 @@ namespace Codice.Examples.GuiTesting.MacOS
 
         internal static void UnregisterApplicationWindow()
         {
-            throw new NotImplementedException();
+            mApplicationWindow = null;
         }
 
         internal static void SetActiveDialogForTesting(NSObject dialog)
         {
-            throw new NotImplementedException();
+            if (!mbIsTestRun)
+                return;
+
+            mActiveDialog = dialog;
         }
 
         internal static void RemoveDialogForTesting(NSObject dialog)
         {
-            throw new NotImplementedException();
+            if (!mbIsTestRun)
+                return;
+
+            if (mActiveDialog == dialog)
+                mActiveDialog = null;
         }
 
         internal static NSObject GetActiveDialog()
         {
-            throw new NotImplementedException();
+            return mActiveDialog;
         }
 
         internal static void LaunchTest(string testInfoFile, string pathToAssemblies)
         {
-            throw new NotImplementedException();
+            mbIsTestRun = true;
+
+            ConfigureTestLogging();
+            InitTesteableServices();
+
+            GuiTestRunner testRunner = new GuiTestRunner(
+                testInfoFile, pathToAssemblies, new GuiFinalizer(), null);
+
+            ThreadPool.QueueUserWorkItem(new WaitCallback(testRunner.Run));
         }
 
         static void ConfigureTestLogging()
         {
-            throw new NotImplementedException();
+            try
+            {
+                string log4netPath = Path.Combine(
+                    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+                    "pnunittestrunner.log.conf");
+            }
+            catch { } // Log config failed, nothing else to do!
         }
 
         static void InitTesteableServices()
         {
-            throw new NotImplementedException();
+            TesteableApplicationWindow testeableWindow =
+                new TesteableApplicationWindow(mApplicationWindow);
+
+            GuiTesteableServices.Init(testeableWindow);
         }
 
         static NSObject mApplication;
@@ -67,5 +102,23 @@ namespace Codice.Examples.GuiTesting.MacOS
         static ApplicationWindow mApplicationWindow;
         static NSObject mActiveDialog;
         static bool mbIsTestRun = false;
+
+        static readonly ILoggerRepository mLogRepository =
+            LogManager.CreateRepository("log4net-rep");
+
+        class GuiFinalizer : GuiTestRunner.IGuiFinalizer
+        {
+            void GuiTestRunner.IGuiFinalizer.Finalize(int exitCode)
+            {
+                // Environmnet.Exit is unable to terminate unmanaged threads
+                // launched by the native Cocoa framework. We don't use any
+                // in this example application, but you could face crashes
+                // if you decide to rely on Environment.Exit to set an exit code.
+                Exit(exitCode);
+            }
+
+            [DllImport("__Internal", EntryPoint = "exit")]
+            static extern void Exit(int exitCode);
+        }
     }
 }

@@ -109,6 +109,7 @@
     <Compile Include="..\..\..\..\lib\pnunit\agent\TestConsoleAccess.cs">
       <Link>testing\TestConsoleAccess.cs</Link>
     </Compile>
+    <Compile Include="testing\TesteableApplicationWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\testing\guitestinterfaces\guitestinterfaces.csproj">
