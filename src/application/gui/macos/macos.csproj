@@ -80,6 +80,7 @@
     <Folder Include="Resources\" />
     <Folder Include="threading\" />
     <Folder Include="ui\" />
+    <Folder Include="testing\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -96,6 +97,18 @@
     <Compile Include="ui\ProgressControls.cs" />
     <Compile Include="ui\NSColors.cs" />
     <Compile Include="ApplicationWindow.cs" />
+    <Compile Include="..\..\..\..\lib\pnunit\guitest\GuiTestRunner.cs">
+      <Link>testing\GuiTestRunner.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\lib\pnunit\agent\AssemblyPreload.cs">
+      <Link>testing\AssemblyPreload.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\lib\pnunit\pnunittestrunner\PNUnitTestRunner.cs">
+      <Link>testing\PNUnitTestRunner.cs</Link>
+    </Compile>
+    <Compile Include="..\..\..\..\lib\pnunit\agent\TestConsoleAccess.cs">
+      <Link>testing\TestConsoleAccess.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\testing\guitestinterfaces\guitestinterfaces.csproj">
