@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppKit;
+
 using Codice.Examples.GuiTesting.GuiTestInterfaces;
 
 namespace Codice.Examples.GuiTesting.MacOS.Testing
@@ -8,58 +9,74 @@ namespace Codice.Examples.GuiTesting.MacOS.Testing
         public TesteableApplicationWindow(ApplicationWindow window)
         {
             mWindow = window;
+            mHelper = new TestHelper();
         }
-
-        readonly ApplicationWindow mWindow;
 
         void ITesteableApplicationWindow.ClickAddButton()
         {
-            throw new NotImplementedException();
+            mHelper.ClickButton(mWindow.AddButton);
         }
 
         void ITesteableApplicationWindow.ClickRemoveButton()
         {
-            throw new NotImplementedException();
+            mHelper.ClickButton(mWindow.RemoveButton);
         }
 
         bool ITesteableApplicationWindow.AreButtonsEnabled()
         {
-            throw new NotImplementedException();
+            return mHelper.IsEnabled(mWindow.AddButton)
+                && mHelper.IsEnabled(mWindow.RemoveButton);
         }
 
         void ITesteableApplicationWindow.ChangeText(string text)
         {
-            throw new NotImplementedException();
+            mHelper.SetText(mWindow.TextField, text);
         }
 
         string ITesteableApplicationWindow.GetText()
         {
-            throw new NotImplementedException();
+            return mHelper.GetText(mWindow.TextField);
         }
 
         int ITesteableApplicationWindow.GetItemsInListCount()
         {
-            throw new NotImplementedException();
+            return mHelper.GetItemCount(mWindow.TableView);
         }
 
         string ITesteableApplicationWindow.GetItemInListAt(int index)
         {
-            throw new NotImplementedException();
+            return mHelper.GetItemAt(mWindow.TableView, "Text", index);
         }
 
         string ITesteableApplicationWindow.GetProgressMessage()
         {
-            throw new NotImplementedException();
+            if (mWindow.ProgressControls.HasError)
+                return string.Empty;
+
+            return mHelper.GetText(mWindow.ProgressControls.ProgressTextField);
         }
 
         string ITesteableApplicationWindow.GetErrorMessage()
         {
-            throw new NotImplementedException();
+            if (!mWindow.ProgressControls.HasError)
+                return string.Empty;
+
+            return mHelper.GetText(mWindow.ProgressControls.ProgressTextField);
         }
 
         ITesteableErrorDialog ITesteableApplicationWindow.GetErrorDialog()
         {
-            throw new NotImplementedException();
+            if (WindowHandler.GetActiveDialog() == null)
+                return null;
+
+            NSAlert errorDialog = WindowHandler.GetActiveDialog() as NSAlert;
+            if (errorDialog == null)
+                return null;
+
+            return new TesteableErrorDialog(errorDialog);
         }
+
+        readonly ApplicationWindow mWindow;
+        readonly TestHelper mHelper;
     }
 }

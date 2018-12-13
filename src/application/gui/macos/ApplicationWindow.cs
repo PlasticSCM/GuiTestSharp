@@ -12,6 +12,12 @@ namespace Codice.Examples.GuiTesting.MacOS
 {
     public class ApplicationWindow : NSWindow, IApplicationWindow
     {
+        internal NSTextField TextField { get { return mTextField; } }
+        internal NSButton RemoveButton { get { return mRemoveButton; } }
+        internal NSButton AddButton { get { return mAddButton; } }
+        internal NSTableView TableView { get { return mTableView; } }
+        internal ProgressControls ProgressControls { get { return mProgressControls; } }
+
         public ApplicationWindow(ApplicationOperations operations) : base()
         {
             mOperations = operations;

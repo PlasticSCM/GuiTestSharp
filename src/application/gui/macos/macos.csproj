@@ -111,6 +111,7 @@
     </Compile>
     <Compile Include="testing\TesteableApplicationWindow.cs" />
     <Compile Include="testing\TestHelper.cs" />
+    <Compile Include="testing\TesteableErrorDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\testing\guitestinterfaces\guitestinterfaces.csproj">
