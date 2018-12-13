@@ -1,6 +1,8 @@
 ﻿using System;
 
 using AppKit;
+using CoreGraphics;
+using Foundation;
 
 namespace Codice.Examples.GuiTesting.MacOS.UI
 {
@@ -76,6 +78,19 @@ namespace Codice.Examples.GuiTesting.MacOS.UI
             return result;
         }
 
+        internal static NSScrollView CreateScrollView(bool bHasScrollers = true)
+        {
+            NSScrollView result = new NSScrollView();
+            result.BorderType = NSBorderType.NoBorder;
+            result.HasVerticalScroller = bHasScrollers;
+            result.HasHorizontalScroller = bHasScrollers;
+            result.AutohidesScrollers = bHasScrollers;
+            result.AutoresizingMask =
+                NSViewResizingMask.WidthSizable | NSViewResizingMask.HeightSizable;
+
+            return result;
+        }
+
         internal static NSTableView CreateTableView()
         {
             NSTableView result = new NSTableView();
@@ -97,6 +112,25 @@ namespace Codice.Examples.GuiTesting.MacOS.UI
             result.HeaderToolTip = name;
             if (width > 0.0f)
                 result.Width = width;
+
+            return result;
+        }
+
+        internal static NSView CreateTableRow(CGRect frame, string text)
+        {
+            NSTextField textField = CreateTextField(text);
+            NSTableCellView result = new NSTableCellView();
+
+            NSViewPacker.PackViews(
+                result,
+                new string[]
+                {
+                    "H:|-4-[text]-4-|",
+                    "V:|-4-[text(23)]-4-|"
+                },
+                new NSDictionary(
+                    "text", textField)
+                );
 
             return result;
         }
