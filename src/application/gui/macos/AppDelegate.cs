@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using AppKit;
 using Foundation;
 
+using GuiTest;
+
 using Codice.Examples.GuiTesting.Lib;
 using Codice.Examples.GuiTesting.Lib.Threading;
 using Codice.Examples.GuiTesting.MacOS.threading;
@@ -45,7 +47,17 @@ namespace Codice.Examples.GuiTesting.MacOS
 
         static void InstallTestAssembliesResolver(string pathToAssemblies)
         {
+            List<string> assemblies = new List<string>();
+            assemblies.Add("nunit.core.dll");
+            assemblies.Add("nunit.core.interfaces.dll");
+            assemblies.Add("nunit.util.dll");
+            assemblies.Add("pnunit.framework.dll");
 
+            assemblies.Add("guitestinterfaces.dll");
+            assemblies.Add("guitests.dll");
+
+            GuiTestRunner.GuiTestAssemblyResolver.InstallAssemblyResolver(
+                pathToAssemblies, assemblies);
         }
 
         ApplicationArgs GetApplicationArgs()
