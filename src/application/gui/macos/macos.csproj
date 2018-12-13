@@ -110,6 +110,7 @@
       <Link>testing\TestConsoleAccess.cs</Link>
     </Compile>
     <Compile Include="testing\TesteableApplicationWindow.cs" />
+    <Compile Include="testing\TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\testing\guitestinterfaces\guitestinterfaces.csproj">
