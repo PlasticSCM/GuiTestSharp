@@ -42,7 +42,10 @@ namespace Codice.Examples.GuiTesting.MacOS
             WindowHandler.LaunchApplicationWindow();
 
             if (appArgs.IsTestingMode)
+            {
+                RemotingHack.ApplyRemotingConfigurationWorkaround();
                 WindowHandler.LaunchTest(appArgs.TestInfoFile, appArgs.PathToAssemblies);
+            }
         }
 
         static void InstallTestAssembliesResolver(string pathToAssemblies)

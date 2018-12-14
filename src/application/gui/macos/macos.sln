@@ -56,4 +56,7 @@ Global
 		{5261ABA1-98E6-4603-A4F0-59CAC307AC68} = {423E90A2-ACD1-4793-B302-C97C10DF4AD7}
 		{D775E82D-4045-4E11-AE85-4402CA0AD054} = {423E90A2-ACD1-4793-B302-C97C10DF4AD7}
 	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		outputpath = ../../../../bin/application
+	EndGlobalSection
 EndGlobal

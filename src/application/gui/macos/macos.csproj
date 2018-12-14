@@ -112,6 +112,7 @@
     <Compile Include="testing\TesteableApplicationWindow.cs" />
     <Compile Include="testing\TestHelper.cs" />
     <Compile Include="testing\TesteableErrorDialog.cs" />
+    <Compile Include="RemotingHack.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\testing\guitestinterfaces\guitestinterfaces.csproj">
