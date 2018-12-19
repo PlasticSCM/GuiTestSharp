@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 
 using log4net;
 
@@ -60,16 +61,32 @@ namespace GuiTest
             if (window == null)
                 return;
 
-            ITesteableErrorDialog errorDialog = window.GetErrorDialog();
-            if (errorDialog == null)
+            if (!IsDialogStillVisible(() => window.GetErrorDialog()))
                 return;
-
+                
             Assert.Fail(
                 "The test finished with an unexpected error dialog still showing up: {0}",
-                errorDialog.GetMessage());
+                window.GetErrorDialog().GetMessage());
 
             // Here you would check for the rest of possible dialogs your
             // application can show.
+        }
+
+        static bool IsDialogStillVisible(Func<object> getDialog)
+        {
+            int sleepTime = 0;
+
+            do
+            {
+                var dialog = getDialog();
+                if (dialog == null)
+                    return false;
+
+                Thread.Sleep(WAIT_INTERVAL);
+                sleepTime += WAIT_INTERVAL;
+            } while (sleepTime <= MAX_WAIT_TIME);
+
+            return true;
         }
 
         static string GetGuiTestExecutablePath()
@@ -189,5 +206,8 @@ namespace GuiTest
 
         static readonly ILog mRunTestLog = LogManager.GetLogger("RunTest");
         static readonly ILog mBarrierLog = LogManager.GetLogger("Barriers");
+
+        const int MAX_WAIT_TIME = 10000;
+        const int WAIT_INTERVAL = 100;
     }
 }
