@@ -8,6 +8,7 @@ using AppKit;
 using Foundation;
 
 using log4net;
+using log4net.Config;
 using log4net.Repository;
 
 using GuiTest;
@@ -85,6 +86,8 @@ namespace Codice.Examples.GuiTesting.MacOS
                 string log4netPath = Path.Combine(
                     Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                     "pnunittestrunner.log.conf");
+
+                XmlConfigurator.Configure(mLogRepository, new FileInfo(log4netPath));
             }
             catch { } // Log config failed, nothing else to do!
         }

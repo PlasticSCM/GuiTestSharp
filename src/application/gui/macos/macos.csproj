@@ -61,6 +61,7 @@
     <Reference Include="nunit.util">
       <HintPath>..\..\..\..\lib\nunit\nunit.util.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
