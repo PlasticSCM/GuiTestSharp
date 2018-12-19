@@ -190,6 +190,8 @@ namespace PNUnitTestRunner
                 string fullAssemblyPath = Path.GetFullPath(
                     Path.Combine(mPathToAssemblies, testInfo.AssemblyName));
 
+                mLog.DebugFormat("Loading test assembly from {0}", fullAssemblyPath);
+
                 testAssemblyLoaded = MakeTest(result, fullAssemblyPath);
 
                 mLog.DebugFormat("Load test assembly {0} ms", Environment.TickCount - ini);
@@ -292,7 +294,10 @@ namespace PNUnitTestRunner
                 testLogInfo.OSVersion,
                 testLogInfo.BackendType);
 
-            string fullMessage = e.Message + "; STACK TRACE: " + e.StackTrace;
+            string fullMessage = string.Format(
+                "{0}; EXCEPTION TYPE: {1}; STACK TRACE: {2}",
+                e.Message, e.GetType(), e.StackTrace);
+
             result.Failure(fullMessage, string.Empty);
 
             pnunitTestInfo.DeleteTestOutput();

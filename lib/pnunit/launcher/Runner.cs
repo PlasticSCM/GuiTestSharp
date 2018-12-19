@@ -298,7 +298,10 @@ namespace PNUnit.Launcher
             TestName tn = new TestName();
             tn.Name = test.Name;
 
-            string fullMessage = e.Message + "; STACK TRACE: " + e.StackTrace;
+            string fullMessage = string.Format(
+                "{0}; EXCEPTION TYPE: {1}; STACK TRACE: {2}",
+                e.Message, e.GetType(), e.StackTrace);
+
             PNUnitTestResult tr = new PNUnitTestResult(tn, fullMessage,
                 string.Empty, string.Empty);
             tr.Failure(fullMessage, e.StackTrace);
