@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -87,9 +87,9 @@ namespace Codice.Examples.GuiTesting.MacOS
                     Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                     "pnunittestrunner.log.conf");
 
-                XmlConfigurator.Configure(mLogRepository, new FileInfo(log4netPath));
+                XmlConfigurator.Configure(new FileInfo(log4netPath));
             }
-            catch { } // Log config failed, nothing else to do!
+            catch { }
         }
 
         static void InitTesteableServices()
@@ -105,9 +105,6 @@ namespace Codice.Examples.GuiTesting.MacOS
         static ApplicationWindow mApplicationWindow;
         static NSObject mActiveDialog;
         static bool mbIsTestRun = false;
-
-        static readonly ILoggerRepository mLogRepository =
-            LogManager.CreateRepository("log4net-rep");
 
         class GuiFinalizer : GuiTestRunner.IGuiFinalizer
         {
