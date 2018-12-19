@@ -1,6 +1,7 @@
 ﻿using AppKit;
 
 using Codice.Examples.GuiTesting.GuiTestInterfaces;
+using Codice.Examples.GuiTesting.Lib;
 
 namespace Codice.Examples.GuiTesting.MacOS.Testing
 {
@@ -14,7 +15,10 @@ namespace Codice.Examples.GuiTesting.MacOS.Testing
 
         void ITesteableErrorDialog.ClickOkButton()
         {
-            mHelper.CLickDialogButton(mAlert.Buttons[0]);
+            mHelper.ClickDialogButton(
+                mHelper.GetButton(
+                    mAlert,
+                    Localization.GetText(Localization.Name.Ok)));
         }
 
         string ITesteableErrorDialog.GetTitle()

@@ -21,14 +21,36 @@ namespace Codice.Examples.GuiTesting.MacOS.Testing
             InvokeOnMainThread(() => { textField.StringValue = text; });
         }
 
+        internal NSButton GetButton(NSAlert alert, string buttonText)
+        {
+            NSButton result = null;
+            InvokeOnMainThread(() =>
+            {
+                foreach (NSButton button in alert.Buttons)
+                {
+                    if (button.Title != buttonText)
+                        continue;
+
+                    result = button;
+                    return;
+                }
+            });
+
+            return result;
+        }
+
         internal void ClickButton(NSButton button)
         {
             BeginInvokeOnMainThread(() => { button.PerformClick(this); });
         }
 
-        internal void CLickDialogButton(NSButton button)
+        internal void ClickDialogButton(NSButton button)
         {
-            InvokeOnMainThread(() => { button.PerformClick(this); });
+            InvokeOnMainThread(() =>
+            {
+                button.PerformClick(this);
+                NSApplication.SharedApplication.AbortModal();
+            });
         }
 
         internal bool IsEnabled(NSControl control)
