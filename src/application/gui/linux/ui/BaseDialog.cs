@@ -9,19 +9,30 @@ namespace Codice.Examples.GuiTesting.Linux.UI
             SetPosition(WindowPosition.CenterOnParent);
             BorderWidth = 10;
             Resizable = false;
+
+#if !NETCORE
             HasSeparator = true;
+#endif
         }
 
+#if !NETCORE
         public override void Dispose()
         {
             Destroy();
             base.Dispose();
         }
+#endif
 
         internal void AddComponents(params Widget[] widgets)
         {
             foreach (Widget widget in widgets)
+            {
+#if !NETCORE
                 ControlPacker.Add(VBox, widget);
+#else
+                ControlPacker.Add(ContentArea, widget);
+#endif
+            }
 
             ShowAll();
         }
@@ -33,7 +44,9 @@ namespace Codice.Examples.GuiTesting.Linux.UI
 
         internal ResponseType RunModal()
         {
+#if !NETCORE
             WindowHandler.SetActiveDialogForTesting(this);
+#endif
 
             ResponseType responseType;
             while ((responseType = (ResponseType)Run()) == ResponseType.None) { }

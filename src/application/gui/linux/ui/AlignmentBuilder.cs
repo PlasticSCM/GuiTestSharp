@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Gtk;
 
 namespace Codice.Examples.GuiTesting.Linux.UI
@@ -14,12 +8,22 @@ namespace Codice.Examples.GuiTesting.Linux.UI
 
         internal static void SetLeftAlignment(Label label)
         {
+#if !NETCORE
             label.SetAlignment(0, (float)0.5);
+#else
+            label.Xalign = 0;
+            label.Yalign = 0.5f;
+#endif
         }
 
         internal static void SetRightAlignment(Label label)
         {
+#if !NETCORE
             label.SetAlignment(1, (float)0.5);
+#else
+            label.Xalign = 1;
+            label.Yalign = 0.5f;
+#endif
         }
 
         internal static Alignment LeftPadding(Widget widget, uint leftPadding)

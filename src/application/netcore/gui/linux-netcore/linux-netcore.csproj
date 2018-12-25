@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RootNamespace>Codice.Examples.GuiTesting.Linux</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;NETCORE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\..\gui\linux\ApplicationWindow.cs" Link="ApplicationWindow.cs" />
+    <Compile Include="..\..\..\gui\linux\ErrorDialog.cs" Link="ErrorDialog.cs" />
+    <Compile Include="..\..\..\gui\linux\GtkGuiMessage.cs" Link="GtkGuiMessage.cs" />
+    <Compile Include="..\..\..\gui\linux\ProcessNameSetter.cs" Link="ProcessNameSetter.cs" />
+    <Compile Include="..\..\..\gui\linux\threading\GtkApplicationTimer.cs" Link="threading\GtkApplicationTimer.cs" />
+    <Compile Include="..\..\..\gui\linux\ui\AlignmentBuilder.cs" Link="ui\AlignmentBuilder.cs" />
+    <Compile Include="..\..\..\gui\linux\ui\BaseDialog.cs" Link="ui\BaseDialog.cs" />
+    <Compile Include="..\..\..\gui\linux\ui\CellContentRenderer.cs" Link="ui\CellContentRenderer.cs" />
+    <Compile Include="..\..\..\gui\linux\ui\ControlBuilder.cs" Link="ui\ControlBuilder.cs" />
+    <Compile Include="..\..\..\gui\linux\ui\ControlPacker.cs" Link="ui\ControlPacker.cs" />
+    <Compile Include="..\..\..\gui\linux\ui\GtkListView.cs" Link="ui\GtkListView.cs" />
+    <Compile Include="..\..\..\gui\linux\ui\Keyboard.cs" Link="ui\Keyboard.cs" />
+    <Compile Include="..\..\..\gui\linux\ui\Mouse.cs" Link="ui\Mouse.cs" />
+    <Compile Include="..\..\..\gui\linux\ui\ProgressControls.cs" Link="ui\ProgressControls.cs" />
+    <Compile Include="..\..\..\gui\linux\ui\TreeBuilder.cs" Link="ui\TreeBuilder.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ui\" />
+    <Folder Include="threading\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AtkSharp" Version="3.22.24.37" />
+    <PackageReference Include="GdkSharp" Version="3.22.24.37" />
+    <PackageReference Include="GLibSharp" Version="3.22.24.37" />
+    <PackageReference Include="GtkSharp" Version="3.22.24.37" />
+    <PackageReference Include="PangoSharp" Version="3.22.24.37" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib-netcore\lib-netcore.csproj" />
+  </ItemGroup>
+
+</Project>

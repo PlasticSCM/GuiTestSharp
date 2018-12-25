@@ -2,7 +2,9 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
+#if !NETCORE
 using log4net;
+#endif
 
 namespace Codice.Examples.GuiTesting.Linux
 {
@@ -23,7 +25,13 @@ namespace Codice.Examples.GuiTesting.Linux
             try
             {
                 if (PrctlSetName(name) != 0)
+                {
+#if NETCORE
+                    Console.Error.WriteLine("Error setting process name");
+#else
                     mLog.Debug("Error setting process name");
+#endif
+                }
             }
             catch (EntryPointNotFoundException)
             {
@@ -35,8 +43,12 @@ namespace Codice.Examples.GuiTesting.Linux
                 }
                 catch (Exception ex)
                 {
+#if NETCORE
+                    Console.Error.WriteLine($"Couldn't change process name: {ex.Message}");
+#else
                     mLog.DebugFormat(
                         "Couldn't change process name: {0}", ex.Message);
+#endif
                 }
             }
         }
@@ -69,6 +81,8 @@ namespace Codice.Examples.GuiTesting.Linux
             }
         }
 
+#if !NETCORE
         static readonly ILog mLog = LogManager.GetLogger("ProcessNameSetter");
+#endif
     }
 }

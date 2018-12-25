@@ -15,6 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "guitestinterfaces", "..\..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pnunit.framework", "..\..\..\..\lib\pnunit\pnunit.framework\pnunit.framework.csproj", "{5261ABA1-98E6-4603-A4F0-59CAC307AC68}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "netcore", "netcore", "{00CA5305-974D-4084-B73C-C93571FE0A76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "linux-netcore", "..\..\netcore\gui\linux-netcore\linux-netcore.csproj", "{6142F41B-0491-49C7-81AA-158F729F0EAC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lib-netcore", "..\..\netcore\lib-netcore\lib-netcore.csproj", "{419A303A-D1D1-4855-8E8A-6AAD98D23017}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +58,18 @@ Global
 		{5261ABA1-98E6-4603-A4F0-59CAC307AC68}.NAnt|Any CPU.Build.0 = NAnt|Any CPU
 		{5261ABA1-98E6-4603-A4F0-59CAC307AC68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5261ABA1-98E6-4603-A4F0-59CAC307AC68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6142F41B-0491-49C7-81AA-158F729F0EAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6142F41B-0491-49C7-81AA-158F729F0EAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6142F41B-0491-49C7-81AA-158F729F0EAC}.NAnt|Any CPU.ActiveCfg = Debug|Any CPU
+		{6142F41B-0491-49C7-81AA-158F729F0EAC}.NAnt|Any CPU.Build.0 = Debug|Any CPU
+		{6142F41B-0491-49C7-81AA-158F729F0EAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6142F41B-0491-49C7-81AA-158F729F0EAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{419A303A-D1D1-4855-8E8A-6AAD98D23017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{419A303A-D1D1-4855-8E8A-6AAD98D23017}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{419A303A-D1D1-4855-8E8A-6AAD98D23017}.NAnt|Any CPU.ActiveCfg = Debug|Any CPU
+		{419A303A-D1D1-4855-8E8A-6AAD98D23017}.NAnt|Any CPU.Build.0 = Debug|Any CPU
+		{419A303A-D1D1-4855-8E8A-6AAD98D23017}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{419A303A-D1D1-4855-8E8A-6AAD98D23017}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +78,8 @@ Global
 		{9EE461F0-5FCA-4631-8335-73E1A0AF2861} = {0182C75F-FE4F-4A0F-B938-083A868BFA6B}
 		{D775E82D-4045-4E11-AE85-4402CA0AD054} = {0182C75F-FE4F-4A0F-B938-083A868BFA6B}
 		{5261ABA1-98E6-4603-A4F0-59CAC307AC68} = {0182C75F-FE4F-4A0F-B938-083A868BFA6B}
+		{6142F41B-0491-49C7-81AA-158F729F0EAC} = {00CA5305-974D-4084-B73C-C93571FE0A76}
+		{419A303A-D1D1-4855-8E8A-6AAD98D23017} = {00CA5305-974D-4084-B73C-C93571FE0A76}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FD1A3758-F68F-4C01-9C40-EE45432517B1}

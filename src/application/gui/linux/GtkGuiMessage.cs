@@ -9,6 +9,7 @@ namespace Codice.Examples.GuiTesting.Linux
             ErrorDialog dialog = new ErrorDialog(
                 title, message, WindowHandler.ApplicationWindow);
 
+#if !NETCORE
             WindowHandler.SetActiveDialogForTesting(dialog);
 
             try
@@ -20,6 +21,9 @@ namespace Codice.Examples.GuiTesting.Linux
                 WindowHandler.RemoveDialogForTesting(dialog);
                 dialog.Dispose();
             }
+#else
+            using (dialog) { dialog.RunModal(); }
+#endif
         }
     }
 }

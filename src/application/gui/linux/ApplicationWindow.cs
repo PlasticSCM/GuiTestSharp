@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 using Gtk;
 
+#if NETCORE
+using TreeModel = Gtk.ITreeModel;
+#endif
+
 using Codice.Examples.GuiTesting.Lib;
 using Codice.Examples.GuiTesting.Lib.Interfaces;
 using Codice.Examples.GuiTesting.Linux.UI;
@@ -26,6 +30,7 @@ namespace Codice.Examples.GuiTesting.Linux
             BuildComponents();
         }
 
+#if !NETCORE
         public override void Dispose()
         {
             mAddButton.Clicked -= AddButton_Clicked;
@@ -34,13 +39,14 @@ namespace Codice.Examples.GuiTesting.Linux
 
             base.Dispose();
         }
+#endif
 
         void ApplicationWindow_DeleteEvent(object sender, DeleteEventArgs e)
         {
             WindowHandler.UnregisterApplicationWindow();
         }
 
-        #region IApplicationWindow methods
+#region IApplicationWindow methods
         void IApplicationWindow.UpdateItems(List<string> items)
         {
             mListView.Fill(items);
@@ -50,9 +56,9 @@ namespace Codice.Examples.GuiTesting.Linux
         {
             mTextEntry.Text = string.Empty;
         }
-        #endregion
+#endregion
 
-        #region Event handlers
+#region Event handlers
         void AddButton_Clicked(object sender, EventArgs e)
         {
             mOperations.AddElement(mTextEntry.Text, this as IApplicationWindow, mProgressControls);
@@ -62,9 +68,9 @@ namespace Codice.Examples.GuiTesting.Linux
         {
             mOperations.RemoveElement(mTextEntry.Text, this as IApplicationWindow, mProgressControls);
         }
-        #endregion
+#endregion
 
-        #region UI building code
+#region UI building code
         void InitializeWindow()
         {
             Title = Localization.GetText(Localization.Name.ApplicationName);
@@ -155,7 +161,7 @@ namespace Codice.Examples.GuiTesting.Linux
             return AlignmentBuilder.TopBottomPadding(
                 result, AlignmentBuilder.SMALL_PADDING);
         }
-        #endregion
+#endregion
 
         ProgressControls mProgressControls;
 

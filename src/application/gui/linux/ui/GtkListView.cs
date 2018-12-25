@@ -1,13 +1,19 @@
 ﻿using System.Collections.Generic;
 
+using Gtk;
+
+#if NETCORE
+using TreeModel = Gtk.ITreeModel;
+#endif
+
 namespace Codice.Examples.GuiTesting.Linux.UI
 {
     internal class GtkListView<T>
     {
-        internal delegate Gtk.TreePath FindRowFunc(Gtk.TreeModel model, T value);
+        internal delegate TreePath FindRowFunc(TreeModel model, T value);
 
-        internal readonly Gtk.TreeView View;
-        
+        internal readonly TreeView View;
+
         internal bool HeadersVisible
         {
             get { return View.HeadersVisible; }
@@ -15,15 +21,15 @@ namespace Codice.Examples.GuiTesting.Linux.UI
         }
 
         internal GtkListView(
-            List<Gtk.TreeViewColumn> columns,
-            Dictionary<int, Gtk.TreeIterCompareFunc> sortFunctionsByColumn,
-            Gtk.TreeModelFilterVisibleFunc visibleFunc)
+            List<TreeViewColumn> columns,
+            Dictionary<int, TreeIterCompareFunc> sortFunctionsByColumn,
+            TreeModelFilterVisibleFunc visibleFunc)
         {
             View = TreeBuilder.CreateTreeView();
             mSortFunctionByColumn = sortFunctionsByColumn;
             mVisibleFunc = visibleFunc;
 
-            foreach (Gtk.TreeViewColumn column in columns)
+            foreach (TreeViewColumn column in columns)
                 View.AppendColumn(column);
         }
 
@@ -32,18 +38,18 @@ namespace Codice.Examples.GuiTesting.Linux.UI
             if (values == null)
                 return;
 
-            Gtk.ListStore listStore = new Gtk.ListStore(typeof(T));
+            ListStore listStore = new ListStore(typeof(T));
 
             values.ForEach((val) => listStore.AppendValues(val));
 
-            mModelFilter = new Gtk.TreeModelFilter(listStore, null);
+            mModelFilter = new TreeModelFilter(listStore, null);
             mModelFilter.VisibleFunc = mVisibleFunc;
 
-            mModelSort = new Gtk.TreeModelSort(mModelFilter);
+            mModelSort = new TreeModelSort(mModelFilter);
             SetSortFunctions(mModelSort, mSortFunctionByColumn);
 
             if (View.Model != null)
-                (View.Model as Gtk.TreeModelSort).Dispose();
+                (View.Model as TreeModelSort).Dispose();
 
             View.Model = mModelSort;
         }
@@ -55,36 +61,35 @@ namespace Codice.Examples.GuiTesting.Linux.UI
             if (View.Selection.CountSelectedRows() == 0)
                 return result;
 
-            foreach (Gtk.TreePath path in View.Selection.GetSelectedRows())
+            foreach (TreePath path in View.Selection.GetSelectedRows())
                 result.Add(GetObjectFromTreePath(mModelSort, path));
 
             return result;
         }
 
-        static T GetObjectFromTreePath(Gtk.TreeModelSort modelSort, Gtk.TreePath path)
+        static T GetObjectFromTreePath(TreeModelSort modelSort, TreePath path)
         {
-            Gtk.TreeIter iter;
+            TreeIter iter;
             modelSort.GetIter(out iter, path);
             return GetObjectFromTreeIter(modelSort, iter);
         }
-
-        static T GetObjectFromTreeIter(Gtk.TreeModel model, Gtk.TreeIter iter)
+        static T GetObjectFromTreeIter(TreeModel model, TreeIter iter)
         {
             return (T)model.GetValue(iter, 0);
         }
 
         static void SetSortFunctions(
-            Gtk.TreeModelSort treeModelSort,
-            Dictionary<int, Gtk.TreeIterCompareFunc> sortFunctions)
+            TreeModelSort treeModelSort,
+            Dictionary<int, TreeIterCompareFunc> sortFunctions)
         {
             foreach (int sortColumnId in sortFunctions.Keys)
                 treeModelSort.SetSortFunc(sortColumnId, sortFunctions[sortColumnId]);
         }
 
-        Gtk.TreeModelFilter mModelFilter;
-        Gtk.TreeModelSort mModelSort;
+        TreeModelFilter mModelFilter;
+        TreeModelSort mModelSort;
 
-        readonly Dictionary<int, Gtk.TreeIterCompareFunc> mSortFunctionByColumn;
-        readonly Gtk.TreeModelFilterVisibleFunc mVisibleFunc;
+        readonly Dictionary<int, TreeIterCompareFunc> mSortFunctionByColumn;
+        readonly TreeModelFilterVisibleFunc mVisibleFunc;
     }
 }

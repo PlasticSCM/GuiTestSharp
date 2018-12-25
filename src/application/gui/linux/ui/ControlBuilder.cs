@@ -22,7 +22,11 @@ namespace Codice.Examples.GuiTesting.Linux.UI
         {
             Label result = CreateLabel();
             result.Name = text;
+#if !NETCORE
             result.LabelProp = Mono.Unix.Catalog.GetString(text);
+#else
+            result.LabelProp = text;
+#endif
             result.Justify = Justification.Left;
             result.LineWrapMode = Pango.WrapMode.Word;
             result.LineWrap = true;
@@ -38,7 +42,11 @@ namespace Codice.Examples.GuiTesting.Linux.UI
         {
             Label result = CreateLabel();
             result.Name = text;
+#if !NETCORE
             result.LabelProp = Mono.Unix.Catalog.GetString(text);
+#else
+            result.LabelProp = text;
+#endif
             return result;
         }
 
