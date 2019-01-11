@@ -75,7 +75,7 @@ As you can see, there are very specific interfaces like `ChangeText` and `ClickR
 
 We built a sample GUI application to explain how testing works. In fact, we built 3 different ones: [WinForms](https://docs.microsoft.com/es-es/dotnet/framework/winforms/) on Windows, [GTKSharp](https://www.mono-project.com/docs/gui/gtksharp/) on GNU/Linux, and [Xamarin.Mac](https://docs.microsoft.com/es-es/xamarin/mac/user-interface/) for macOS, but it is extensible to any GUI framework, as long as there are bindings to work with it from C#. You'd only need to adapt the UI specific code of the testing stack.
 
-![Windows application](https://github.com/PlasticSCM/gui-testing-examples/raw/develop-windows-application/img/windows-application.png)
+![Multiplatform applications](https://github.com/PlasticSCM/dotnet-gui-test-automation/raw/master/img/multiplatform-gui.png)
 
 The sample application is really simple. It consist on a single window that has:
 
@@ -90,8 +90,19 @@ The sample application is really simple. It consist on a single window that has:
 4) If the new text to add already exists in the list, or if the text to remove can't be found, the application shows an error message on a dialog once the background operation ends.
 
 In short, we simply simulate what a regular GUI application does.
+You can see the multplatform application under testing bellow:
 
-![System in action](https://github.com/PlasticSCM/gui-testing-examples/raw/develop-windows-application/img/gui-testing-in-action.gif)
+### Windows Forms under Windows 10
+
+![Example on Windows](https://github.com/PlasticSCM/dotnet-gui-test-automation/raw/master/img/gui-testing-in-action-windows.gif)
+
+### Xamarin.Mac under macOS Mojave
+
+![Example on macOS](https://github.com/PlasticSCM/dotnet-gui-test-automation/raw/master/img/gui-testing-in-action-macos.gif)
+
+### GTK# 2 under Ubuntu 18.10
+
+![Example on GNU/Linux](https://github.com/PlasticSCM/dotnet-gui-test-automation/raw/master/img/gui-testing-in-action-linux.gif)
 
 ## Repository structure
 
@@ -105,7 +116,7 @@ In short, we simply simulate what a regular GUI application does.
     * `/testing`: the testing related source code. On this repository there is only GUI testing code, but unit tests would be here too.
       * `/guitest`: the library that contains the tests.
       * `/guitestinterfaces`: the interfaces (and some utility classes) that all of the applications (Windows, macOS & GNU/Linux) need to implement so the tests can interact with them.
-* `/lib`: the _third party_ libraries (source code or libraries).
+* `/lib`: the _third party_ libraries (source code or library assemblies).
   * `/log4net`: the logging library used by the `pnunit` framework.
   * `/mono`: the library that the testing framework needs to identify the specific OS version and hardware platform when running under the Mono Runtime.
   * `/nunit`: the well known NUnit testing framework, in its last 2.x release.
@@ -132,7 +143,7 @@ The Windows application is based on WinForms, so with a standard Visual Studio i
     * `> launcher.exe wintest.conf`
         * This will launch all of the tests defined in the _wintest.conf_ suite, one after the other. Once all the test are executed, it will print the output and generate a report file in the same directory.
 
-### With MSBuild
+#### With MSBuild
 
 1) Make sure `MSBuild.exe` is in your `%PATH%`. It normally isn't.
 2) Execute the following from the root directory of the repository:
@@ -200,15 +211,18 @@ chmod u+x agent
 chmod u+x launcher
 ```
 
+Note: if you are using [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to test the GNU/Linux example using Windows (obscure scenario, but you might want to give it a try!), make sure you don't have the Windows' MSBuild executable in your Windows' PATH. Because you can execute Windows binaries from the WSL, if the Windows variant of MSBuild is in your PATH, when you try to compile the application using Mono's MSBuild, it will use some of the Windows' executables. The compile process will succeed, but the application won't launch.
+
 ### macOS
 
-You need to do the following before starting, if you don't have already done it in the past.
+You need to do the following before starting, if you don't have already done it in the past:
 
-1) Install Visual Studio (Community is OK) from [it's official site](https://visualstudio.microsoft.com/es/vs/mac/).
-2) Run the installer. Install Xcode from the App Store when asked to.
-3) Open Xcode at least once, so it can install missing components required by Xamarin.Mac.
+1) Download Visual Studio installer (Community is OK) from [it's official site](https://visualstudio.microsoft.com/es/vs/mac/).
+2) Run the installer. Install XCode from the App Store when asked to.
+3) If opened, close Visual Studio. Then open XCode, so it can install missing components required by Xamarin.Mac.
+4) Re-launch Visual Studio.
 
-### With Visual Studio for macOS
+#### With Visual Studio for macOS
 
 1) Open `/src/lib/pnunit/pnunit.sln` and build it (`cmd + Shift + B` by default).
     * This will build the PNUnit framework to `/bin/pnunit`, including the `agent` and the `launcher`.
