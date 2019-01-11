@@ -156,9 +156,9 @@ namespace PNUnit.Agent
             }
 
             string testInfoFileForRunnerPid = Path.Combine(
-                    Path.GetTempPath(),
-                    AssemblyPreload.PRELOADED_PROCESS_FILE_PREFIX +
-                    result.Id.ToString());
+                Path.GetTempPath(),
+                AssemblyPreload.PRELOADED_PROCESS_FILE_PREFIX +
+                result.Id.ToString());
 
             File.Move(testInfoPath, testInfoFileForRunnerPid);
 
@@ -184,6 +184,12 @@ namespace PNUnit.Agent
             {
                 result = ProcessCreator.CreateGuiApplicationRunnerProcess(
                     testInfo, "linux", testingArgs, mPathToAssemblies);
+            }
+
+            if (testInfo.TestName.StartsWith("mac:"))
+            {
+                result = ProcessCreator.CreateGuiApplicationRunnerProcess(
+                    testInfo, "macos.app/Contents/MacOS/macos", testingArgs, mPathToAssemblies);
             }
 
             if (result == null)

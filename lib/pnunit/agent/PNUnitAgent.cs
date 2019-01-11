@@ -114,7 +114,9 @@ namespace PNUnit.Agent
             ConfigureRemoting.Configure(mConfig.Port);
 
             mProcessPool = new ProcessPool(
-                preloadTestRunners, mConfig.PathToAssemblies, mConfig.NoTimeout);
+                preloadTestRunners,
+                Path.GetFullPath(mConfig.PathToAssemblies),
+                mConfig.NoTimeout);
 
             // publish
             RemotingServices.Marshal(this, PNUnit.Framework.Names.PNUnitAgentServiceName);
@@ -167,10 +169,9 @@ namespace PNUnit.Agent
                 testName, info.GetTestOutput(),
                 testLogInfo.OSVersion, testLogInfo.BackendType, true);
 
-            string fullMessage =
-                "TestName:" + testName.Name + ";" +
-                "Error:" + e.Message + ";" +
-                "STACK TRACE: " + e.StackTrace;
+            string fullMessage = string.Format(
+                "TestName: {0}; Error: {1}; EXCEPTION TYPE: {2}; STACK TRACE: {3}",
+                testName.Name, e.Message, e.GetType(), e.StackTrace);
 
             result.Failure(fullMessage, string.Empty);
 

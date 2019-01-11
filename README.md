@@ -101,6 +101,7 @@ In short, we simply simulate what a regular GUI application does.
       * `/gui`: the GUI code.
         * `/windows`: the Windows GUI application, based on WinForms.
         * `/linux`: the Linux GUI application, based on GTKSharp (GTK+).
+        * `/macos`: the macOS GUI application, based on Xamarin.Mac.
     * `/testing`: the testing related source code. On this repository there is only GUI testing code, but unit tests would be here too.
       * `/guitest`: the library that contains the tests.
       * `/guitestinterfaces`: the interfaces (and some utility classes) that all of the applications (Windows, macOS & GNU/Linux) need to implement so the tests can interact with them.
@@ -180,7 +181,7 @@ chmod u+x agent
 chmod u+x launcher
 ```
 
-#### Linux with msbuild
+#### With msbuild
 
 1) Make sure `msbuild.exe` is in your `$PATH`. It should be after installing `mono-complete` or `monodevelop`. It is now the preferred tool for compiling C# code, replacing `xbuild`.
 2) Execute the following from the root directory of the repository:
@@ -198,3 +199,24 @@ You might need to give execution permissions to both the `agent` and the `launch
 chmod u+x agent
 chmod u+x launcher
 ```
+
+### macOS
+
+You need to do the following before starting, if you don't have already done it in the past.
+
+1) Install Visual Studio (Community is OK) from [it's official site](https://visualstudio.microsoft.com/es/vs/mac/).
+2) Run the installer. Install Xcode from the App Store when asked to.
+3) Open Xcode at least once, so it can install missing components required by Xamarin.Mac.
+
+### With Visual Studio for macOS
+
+1) Open `/src/lib/pnunit/pnunit.sln` and build it (`cmd + Shift + B` by default).
+    * This will build the PNUnit framework to `/bin/pnunit`, including the `agent` and the `launcher`.
+2) Open `/src/application/gui/macos/macos.sln` and build it.
+    * This will build the application (`macos.app`) and its dependencies to `/bin/application`.
+    * It will also build the testing library because it is in the same Visual Studio solution, but it will output to `/bin/pnunit`.
+3) Go to `/bin/pnunit` in two different terminals and launch the following:
+    * `> mono agent.exe agent.conf`
+        * This launches the PNUnit agent, which will stay idle until the `launcher` issues a command.
+    * `> mono launcher.exe mactest.conf`
+        * This will launch all of the tests defined in the _wintest.conf_ suite, one after the other. Once all the test are executed, it will print the output and generate a report file in the same directory.
